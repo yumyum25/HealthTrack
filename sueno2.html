@@ -12,946 +12,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="dashboard-styles.css">
 
-    <style>
-        :root {
-            --primary: #00D4AA;
-            --primary-dark: #00B894;
-            --secondary: #6C63FF;
-            --accent: #FF6B95;
-            --bg: #F8FAFC;
-            --card: #FFFFFF;
-            --text: #2D3748;
-            --muted: #718096;
-            --border: #E6EEF3;
-            --danger: #E74C3C;
-            --warning: #F39C12;
-            --success: #27AE60;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
-            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
-            --radius: 12px;
-            --maxw: 1200px;
-        }
-
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --bg: #071226;
-                --card: #0f1724;
-                --text: #E6EEF3;
-                --muted: #AAB7C7;
-                --border: #122235;
-            }
-        }
-
-        /* RESET Y ESTILOS BASE */
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html, body {
-            height: 100%;
-            font-family: 'Inter', system-ui, sans-serif;
-            color: var(--text);
-            background: var(--bg);
-            line-height: 1.6;
-        }
-
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-
-        /* HEADER FIJO - MEJORADO */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 12px 0;
-            box-shadow: var(--shadow);
-            height: 70px;
-        }
-
-        .container {
-            max-width: var(--maxw);
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        .header-grid {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            height: 100%;
-        }
-
-        .brand a {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            color: white;
-            text-decoration: none;
-            padding: 8px 12px;
-            border-radius: 10px;
-            transition: 0.3s;
-        }
-
-        .brand a:hover {
-            background: rgba(255,255,255,0.1);
-            transform: translateY(-1px);
-        }
-
-        .logo {
-            width: 40px;
-            height: 40px;
-            background: rgba(255,255,255,0.15);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* ÁREA DE USUARIO MEJORADA */
-        .user-area {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-info {
-            text-align: right;
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
-
-        .user-name {
-            font-weight: 600;
-            font-size: 0.95rem;
-            white-space: nowrap;
-        }
-
-        .user-email {
-            font-size: 0.8rem;
-            opacity: 0.9;
-            white-space: nowrap;
-        }
-
-        .btn {
-            cursor: pointer;
-            border: none;
-            padding: 8px 16px;
-            border-radius: 10px;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .btn-ghost {
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(255,255,255,0.2);
-            color: white;
-        }
-
-        .btn-ghost:hover {
-            background: rgba(255,255,255,0.2);
-            transform: translateY(-1px);
-        }
-
-        /* NAVEGACIÓN FIJA */
-        nav {
-            position: fixed;
-            top: 70px;
-            left: 0;
-            right: 0;
-            z-index: 999;
-            background: var(--card);
-            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
-            border-bottom: 1px solid var(--border);
-            height: 60px;
-        }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: var(--maxw);
-            margin: 0 auto;
-            padding: 0 20px;
-            gap: 30px;
-            height: 100%;
-        }
-
-        .nav-list {
-            display: flex;
-            gap: 4px;
-            list-style: none;
-            flex: 1;
-        }
-
-        .nav-list a {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 12px 16px;
-            color: var(--muted);
-            text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: 0.3s;
-            position: relative;
-            white-space: nowrap;
-            font-size: 0.9rem;
-        }
-
-        .nav-list a::before {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 3px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            transition: 0.3s;
-            transform: translateX(-50%);
-        }
-
-        .nav-list a:hover,
-        .nav-list a.active {
-            color: var(--primary);
-            background: rgba(0,212,170,0.08);
-        }
-
-        .nav-list a:hover::before,
-        .nav-list a.active::before {
-            width: 80%;
-        }
-
-        /* BÚSQUEDA */
-        .nav-search {
-            position: relative;
-            display: flex;
-            align-items: center;
-            margin-left: auto;
-        }
-
-        .nav-search input {
-            padding: 8px 14px 8px 36px;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background: var(--bg);
-            color: var(--text);
-            width: 200px;
-            transition: all 0.3s ease;
-            font-size: 0.85rem;
-        }
-
-        .nav-search input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.1);
-            width: 230px;
-        }
-
-        .nav-search i {
-            position: absolute;
-            left: 12px;
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        /* CONTENIDO PRINCIPAL */
-        main {
-            flex: 1;
-            margin-top: 130px;
-            padding: 0 20px;
-            max-width: var(--maxw);
-            margin-left: auto;
-            margin-right: auto;
-            width: 100%;
-        }
-
-        .page-title {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-end;
-            margin-bottom: 24px;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .page-title h1 {
-            font-size: 2.2rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 8px;
-        }
-
-        .lead {
-            color: var(--muted);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-        }
-
-        /* PESTAÑAS */
-        .tabs-container {
-            display: flex;
-            background: var(--card);
-            padding: 6px;
-            border-radius: var(--radius);
-            margin-bottom: 28px;
-            box-shadow: var(--shadow);
-            gap: 8px;
-            overflow-x: auto;
-        }
-
-        .tab-btn {
-            flex: 1;
-            padding: 12px 16px;
-            border: none;
-            background: transparent;
-            color: var(--muted);
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            white-space: nowrap;
-            transition: 0.3s;
-            font-size: 0.9rem;
-        }
-
-        .tab-btn.active {
-            background: rgba(0,212,170,0.1);
-            color: var(--primary);
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-            animation: fadeIn 0.4s;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
-        /* TARJETAS DE RESUMEN */
-        .overview-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .overview-card {
-            background: var(--card);
-            padding: 25px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            text-align: center;
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--primary);
-        }
-
-        .overview-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .overview-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .overview-number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: var(--text);
-            margin-bottom: 8px;
-        }
-
-        .overview-label {
-            color: var(--muted);
-            font-size: 0.95rem;
-            font-weight: 500;
-        }
-
-        /* GRÁFICOS Y VISUALIZACIONES */
-        .chart-container {
-            background: var(--card);
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-
-        .chart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .chart-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .chart-actions {
-            display: flex;
-            gap: 10px;
-        }
-
-        .chart-action {
-            padding: 8px 16px;
-            border: 2px solid var(--border);
-            border-radius: 8px;
-            background: white;
-            color: var(--text-light);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 500;
-            font-size: 0.85rem;
-        }
-
-        .chart-action.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-
-        .chart-placeholder {
-            height: 300px;
-            background: var(--bg);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--muted);
-            font-size: 1.1rem;
-            margin-bottom: 20px;
-        }
-
-        /* HISTORIAL DE SUEÑO */
-        .sleep-history {
-            background: var(--card);
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-
-        .history-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 25px;
-        }
-
-        .history-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--text);
-        }
-
-        .sleep-days {
-            display: grid;
-            gap: 15px;
-        }
-
-        .sleep-day {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px;
-            background: var(--bg);
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            border: 1px solid var(--border);
-        }
-
-        .sleep-day:hover {
-            background: var(--card);
-            box-shadow: var(--shadow);
-            transform: translateY(-2px);
-        }
-
-        .day-info h4 {
-            margin-bottom: 5px;
-            color: var(--text);
-            font-weight: 600;
-        }
-
-        .day-info p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .sleep-duration {
-            font-weight: 700;
-            color: var(--primary);
-            font-size: 1.1rem;
-        }
-
-        /* ANÁLISIS DE CALIDAD */
-        .quality-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .quality-item {
-            text-align: center;
-            padding: 25px 20px;
-            background: var(--card);
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-        }
-
-        .quality-item:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .quality-value {
-            font-size: 1.8rem;
-            font-weight: 800;
-            color: var(--primary);
-            margin-bottom: 8px;
-        }
-
-        .quality-label {
-            color: var(--muted);
-            font-size: 0.9rem;
-            font-weight: 500;
-        }
-
-        /* CONSEJOS Y RECOMENDACIONES */
-        .tips-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-
-        .tip-card {
-            background: var(--card);
-            padding: 25px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--primary);
-        }
-
-        .tip-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-
-        .tip-icon {
-            font-size: 2rem;
-            margin-bottom: 15px;
-            color: var(--primary);
-        }
-
-        .tip-title {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--text);
-            margin-bottom: 10px;
-        }
-
-        .tip-description {
-            color: var(--muted);
-            font-size: 0.9rem;
-            line-height: 1.5;
-        }
-
-        /* FORMULARIOS */
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: 600;
-            color: var(--text);
-        }
-
-        .form-input {
-            width: 100%;
-            padding: 12px 16px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
-            background: var(--bg);
-            color: var(--text);
-            transition: 0.3s;
-            font-size: 1rem;
-        }
-
-        .form-input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0,212,170,0.15);
-        }
-
-        .btn-primary,
-        .btn-save {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            border: none;
-            padding: 12px 24px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: 0.3s;
-        }
-
-        .btn-primary:hover,
-        .btn-save:hover {
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-
-        /* OBJETIVOS Y PROGRESO */
-        .goals-container {
-            background: var(--card);
-            padding: 30px;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            margin-bottom: 30px;
-        }
-
-        .progress-container {
-            margin: 15px 0;
-        }
-
-        .progress-label {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 5px;
-            font-size: 0.9rem;
-        }
-
-        .progress-bar {
-            height: 8px;
-            background: var(--border);
-            border-radius: 4px;
-            overflow: hidden;
-        }
-
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 4px;
-            transition: width 0.5s ease;
-        }
-
-        /* FOOTER MEJORADO */
-        footer {
-            background: var(--card);
-            border-top: 1px solid var(--border);
-            margin-top: 60px;
-            padding: 50px 0 30px;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-section h4 {
-            color: var(--text);
-            margin-bottom: 20px;
-            font-size: 1.2rem;
-            font-weight: 700;
-            position: relative;
-        }
-
-        .footer-section h4::after {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 0;
-            width: 40px;
-            height: 3px;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border-radius: 2px;
-        }
-
-        .footer-section p {
-            color: var(--muted);
-            line-height: 1.7;
-            margin-bottom: 15px;
-        }
-
-        .footer-links {
-            list-style: none;
-        }
-
-        .footer-links li {
-            margin-bottom: 12px;
-        }
-
-        .footer-links a {
-            color: var(--muted);
-            text-decoration: none;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 4px 0;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary);
-            transform: translateX(5px);
-        }
-
-        .footer-links a i {
-            width: 20px;
-            text-align: center;
-            font-size: 1rem;
-        }
-
-        .contact-info {
-            list-style: none;
-        }
-
-        .contact-info li {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            margin-bottom: 15px;
-            color: var(--muted);
-        }
-
-        .contact-info i {
-            color: var(--primary);
-            font-size: 1.1rem;
-            margin-top: 2px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .social-links a {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 40px;
-            height: 40px;
-            background: var(--bg);
-            color: var(--muted);
-            border-radius: 50%;
-            transition: all 0.3s ease;
-            text-decoration: none;
-        }
-
-        .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-3px);
-        }
-
-        .footer-bottom {
-            border-top: 1px solid var(--border);
-            padding-top: 25px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
-
-        .footer-bottom p {
-            color: var(--muted);
-            font-size: 0.9rem;
-        }
-
-        .footer-heart {
-            color: var(--primary);
-            margin: 0 5px;
-        }
-
-        /* TOASTS */
-        .toasts {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .toast {
-            background: var(--card);
-            color: var(--text);
-            padding: 14px 20px;
-            border-radius: 10px;
-            box-shadow: var(--shadow-lg);
-            border: 1px solid var(--border);
-            animation: slideIn 0.4s ease;
-        }
-
-        @keyframes slideIn {
-            from {
-                transform: translateX(100%);
-                opacity: 0;
-            }
-            to {
-                transform: none;
-                opacity: 1;
-            }
-        }
-
-        /* RESPONSIVE */
-        @media (max-width: 992px) {
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-                gap: 30px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            main {
-                margin-top: 150px;
-            }
-            
-            .header-grid {
-                flex-direction: column;
-                text-align: center;
-                gap: 10px;
-                padding: 5px 0;
-            }
-            
-            header {
-                height: auto;
-                min-height: 80px;
-                padding: 8px 0;
-            }
-            
-            .user-area {
-                flex-direction: column;
-                gap: 8px;
-            }
-            
-            .user-info {
-                text-align: center;
-            }
-            
-            nav {
-                top: auto;
-                position: relative;
-                height: auto;
-            }
-            
-            .nav-container {
-                flex-direction: column;
-                gap: 10px;
-                padding: 10px 20px;
-            }
-            
-            .nav-list {
-                width: 100%;
-                justify-content: center;
-                flex-wrap: wrap;
-            }
-            
-            .nav-search {
-                width: 100%;
-                margin-left: 0;
-            }
-            
-            .nav-search input {
-                width: 100%;
-            }
-            
-            .tabs-container {
-                flex-wrap: wrap;
-            }
-            
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-            
-            .footer-bottom {
-                flex-direction: column;
-                text-align: center;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-list {
-                flex-direction: column;
-                width: 100%;
-            }
-            
-            .nav-list a {
-                justify-content: center;
-            }
-            
-            .page-title {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .overview-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .tips-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- HEADER MEJORADO -->
     <header>
         <div class="container header-grid">
             <div class="brand">
@@ -963,8 +27,7 @@
                     </div>
                 </a>
             </div>
-            
-            <!-- ÁREA DE USUARIO MEJORADA -->
+
             <div class="user-area">
                 <div class="user-info">
                     <div class="user-name" id="userName">María González</div>
@@ -977,7 +40,6 @@
         </div>
     </header>
 
-    <!-- NAVEGACIÓN -->
     <nav aria-label="Navegación principal">
         <div class="nav-container">
             <ul class="nav-list">
@@ -985,7 +47,7 @@
                 <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
                 <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
                 <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
-                <li><a href="#" class="active"><i class="fas fa-bed"></i> Sueño</a></li>
+                <li><a href="sueno.html" class="active"><i class="fas fa-bed"></i> Sueño</a></li>
                 <li><a href="recordatorio.html"><i class="fas fa-bell"></i> Recordatorios</a></li>
                 <li><a href="miperfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
             </ul>
@@ -1227,7 +289,7 @@
             <div class="tab-content" id="goals-tab">
                 <div class="goals-container">
                     <h3 style="margin-bottom: 25px; color: var(--text);">Mis Objetivos de Sueño</h3>
-                    
+
                     <div class="progress-container">
                         <div class="progress-label">
                             <span>Meta: 8 horas por noche</span>
@@ -1237,7 +299,7 @@
                             <div class="progress-fill" style="width: 85%"></div>
                         </div>
                     </div>
-                    
+
                     <div class="progress-container">
                         <div class="progress-label">
                             <span>Meta: 90% de calidad</span>
@@ -1247,7 +309,7 @@
                             <div class="progress-fill" style="width: 85%"></div>
                         </div>
                     </div>
-                    
+
                     <div class="progress-container">
                         <div class="progress-label">
                             <span>Meta: Dormir antes de las 11 PM</span>
@@ -1257,12 +319,12 @@
                             <div class="progress-fill" style="width: 75%"></div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group" style="margin-top: 30px;">
                         <label for="sleepGoal">Nueva Meta de Sueño (horas)</label>
                         <input type="number" id="sleepGoal" class="form-input" value="8" step="0.5">
                     </div>
-                    
+
                     <button class="btn-save" id="saveSleepGoal">
                         <i class="fas fa-save"></i> Actualizar Meta
                     </button>
@@ -1344,82 +406,6 @@
             </div>
         </div>
     </main>
-
-    <!-- FOOTER MEJORADO -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <!-- Información de la empresa -->
-                <div class="footer-section">
-                    <h4>Health Track</h4>
-                    <p>Tu compañero de salud digital. Monitorea tu actividad, sueño, nutrición y bienestar general con nuestra plataforma integral.</p>
-                    <p>Fundada en 2020, nos dedicamos a mejorar la calidad de vida mediante el seguimiento inteligente de la salud.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-
-                <!-- Recursos -->
-                <div class="footer-section">
-                    <h4>Recursos</h4>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-book-medical"></i> Guías de Salud</a></li>
-                        <li><a href="#"><i class="fas fa-video"></i> Tutoriales</a></li>
-                        <li><a href="#"><i class="fas fa-file-pdf"></i> Documentación</a></li>
-                        <li><a href="#"><i class="fas fa-mobile-alt"></i> App Móvil</a></li>
-                        <li><a href="#"><i class="fas fa-download"></i> Descargas</a></li>
-                    </ul>
-                </div>
-
-                <!-- Soporte -->
-                <div class="footer-section">
-                    <h4>Soporte</h4>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
-                        <li><a href="#"><i class="fas fa-comments"></i> Foro Comunitario</a></li>
-                        <li><a href="#"><i class="fas fa-life-ring"></i> Asistencia Técnica</a></li>
-                        <li><a href="#"><i class="fas fa-bug"></i> Reportar Problema</a></li>
-                        <li><a href="#"><i class="fas fa-lightbulb"></i> Sugerencias</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contacto -->
-                <div class="footer-section">
-                    <h4>Contacto</h4>
-                    <ul class="contact-info">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Calle Salud 123<br>Madrid, España 28001</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <span>+34 900 123 456<br>Lun-Vie 9:00-18:00</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>info@healthtrack.com<br>soporte@healthtrack.com</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-clock"></i>
-                            <span>Atención al cliente<br>24/7 para emergencias</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 Health Track. Todos los derechos reservados.</p>
-                <p>Desarrollado con <i class="fas fa-heart footer-heart"></i> para tu bienestar</p>
-            </div>
-        </div>
-    </footer>
-
-    <!-- TOASTS -->
-    <div class="toasts" id="toasts" aria-live="polite"></div>
-
     <script>
         (function () {
             'use strict';
@@ -1461,7 +447,7 @@
                     };
                 });
             }
-            
+
             function setupChartActions() {
                 $$('.chart-action').forEach(action => {
                     action.onclick = function() {
@@ -1471,17 +457,17 @@
                     };
                 });
             }
-            
+
             function setupSleepForm() {
                 $('#sleepForm').onsubmit = e => {
                     e.preventDefault();
-                    
+
                     const date = $('#sleepDate').value;
                     const sleepTime = $('#sleepTime').value;
                     const wakeTime = $('#wakeTime').value;
                     const quality = $('#sleepQuality').value;
                     const notes = $('#sleepNotes').value;
-                    
+
                     // Guardar en localStorage
                     const sleepData = {
                         date,
@@ -1491,36 +477,36 @@
                         notes,
                         timestamp: new Date().toISOString()
                     };
-                    
+
                     let sleepHistory = JSON.parse(localStorage.getItem('sleepHistory') || '[]');
                     sleepHistory.push(sleepData);
                     localStorage.setItem('sleepHistory', JSON.stringify(sleepHistory));
-                    
+
                     // Limpiar formulario
                     $('#sleepForm').reset();
-                    
+
                     toast('Registro de sueño guardado correctamente');
                 };
-                
+
                 // Establecer fecha actual por defecto
                 const today = new Date().toISOString().split('T')[0];
                 $('#sleepDate').value = today;
             }
-            
+
             function setupSleepGoal() {
                 $('#saveSleepGoal').onclick = () => {
                     const goal = $('#sleepGoal').value;
                     localStorage.setItem('sleepGoal', goal);
                     toast('Meta de sueño actualizada a ' + goal + ' horas');
                 };
-                
+
                 // Cargar meta guardada
                 const savedGoal = localStorage.getItem('sleepGoal');
                 if (savedGoal) {
                     $('#sleepGoal').value = savedGoal;
                 }
             }
-            
+
             function setupFactors() {
                 $('#saveFactors').onclick = () => {
                     const factors = {
@@ -1529,11 +515,11 @@
                         stress: $('#stress').value,
                         screenTime: $('#screenTime').value
                     };
-                    
+
                     localStorage.setItem('sleepFactors', JSON.stringify(factors));
                     toast('Factores de sueño guardados correctamente');
                 };
-                
+
                 // Cargar factores guardados
                 const savedFactors = JSON.parse(localStorage.getItem('sleepFactors') || '{}');
                 if (savedFactors.caffeine) $('#caffeine').value = savedFactors.caffeine;
