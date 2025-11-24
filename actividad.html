@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actividad - Health Track</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos base del dashboard - igual que en estadisticas.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --primary: #00D4AA;
+            --primary-dark: #00B894;
+            --primary-light: #80FFE5;
+            --secondary: #6C63FF;
+            --accent: #FF6B95;
+            --text: #2D3748;
+            --text-light: #718096;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --background-dark: #0F172A;
+            --border: #E2E8F0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        body {
+            color: var(--text);
+            line-height: 1.7;
+            background: var(--background-alt);
+            min-height: 100vh;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .user-email {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .dashboard-nav {
+            background: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 80px;
+            z-index: 90;
+        }
+
+        .nav-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            padding: 10px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .dashboard-main {
+            max-width: 1280px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            color: var(--text);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .activity-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 40px;
+        }
+
+        .activity-card {
+            background: white;
+            padding: 30px 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            border-left: 4px solid var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .activity-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .activity-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .activity-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .activity-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .workout-section {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+        }
+
+        .workout-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .workout-card {
+            background: var(--background-alt);
+            padding: 25px;
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .workout-card:hover {
+            background: white;
+            box-shadow: var(--shadow);
+            border-color: var(--primary-light);
+        }
+
+        .workout-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 15px;
+        }
+
+        .workout-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 5px;
+        }
+
+        .workout-type {
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .workout-calories {
+            background: var(--primary);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .workout-details {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .activity-goals {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .goal-item {
+            margin-bottom: 25px;
+        }
+
+        .goal-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .goal-label {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .goal-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .goal-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .goal-fill {
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .user-info {
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .section-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+
+            .workout-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-main {
+                padding: 0 16px;
+            }
+
+            .workout-section, .activity-goals {
+                padding: 20px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <span>Health Track</span>
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-name" id="userName">Usuario</div>
+                    <div class="user-email" id="userEmail">usuario@email.com</div>
+                </div>
+                <button class="btn btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="dashboard-nav">
+        <div class="nav-content">
+            <ul class="nav-links">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
+                <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
+                <li><a href="#" class="active"><i class="fas fa-running"></i> Actividad</a></li>
+                <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
+                <li><a href="recordatorio.html"><i class="fas fa-bell"></i> Recordatorios</a></li>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="page-header">
+            <h1>Actividad Física</h1>
+            <p>Registra tus entrenamientos y monitorea tu actividad diaria</p>
+        </div>
+
+        <div class="activity-stats">
+            <div class="activity-card">
+                <div class="activity-icon">
+                    <i class="fas fa-shoe-prints" style="color: #FF6B95;"></i>
+                </div>
+                <div class="activity-number">8,542</div>
+                <div class="activity-label">Pasos Hoy</div>
+            </div>
+            <div class="activity-card">
+                <div class="activity-icon">
+                    <i class="fas fa-fire" style="color: #6C63FF;"></i>
+                </div>
+                <div class="activity-number">1,250</div>
+                <div class="activity-label">Calorías Quemadas</div>
+            </div>
+            <div class="activity-card">
+                <div class="activity-icon">
+                    <i class="fas fa-road" style="color: #00D4AA;"></i>
+                </div>
+                <div class="activity-number">6.2 km</div>
+                <div class="activity-label">Distancia Recorrida</div>
+            </div>
+            <div class="activity-card">
+                <div class="activity-icon">
+                    <i class="fas fa-clock" style="color: #667eea;"></i>
+                </div>
+                <div class="activity-number">45 min</div>
+                <div class="activity-label">Tiempo Activo</div>
+            </div>
+        </div>
+
+        <div class="workout-section">
+            <div class="section-header">
+                <h3 class="section-title">Entrenamientos Recientes</h3>
+                <button class="btn-primary">
+                    <i class="fas fa-plus"></i> Nuevo Entrenamiento
+                </button>
+            </div>
+            <div class="workout-grid">
+                <div class="workout-card">
+                    <div class="workout-header">
+                        <div>
+                            <div class="workout-title">Running Matutino</div>
+                            <div class="workout-type">Cardio</div>
+                        </div>
+                        <div class="workout-calories">320 cal</div>
+                    </div>
+                    <div class="workout-details">
+                        <p><strong>Duración:</strong> 30 minutos</p>
+                        <p><strong>Distancia:</strong> 5.2 km</p>
+                        <p><strong>Ritmo:</strong> 5:45 min/km</p>
+                    </div>
+                </div>
+                <div class="workout-card">
+                    <div class="workout-header">
+                        <div>
+                            <div class="workout-title">Entrenamiento de Fuerza</div>
+                            <div class="workout-type">Pesas</div>
+                        </div>
+                        <div class="workout-calories">280 cal</div>
+                    </div>
+                    <div class="workout-details">
+                        <p><strong>Duración:</strong> 45 minutos</p>
+                        <p><strong>Ejercicios:</strong> 8 diferentes</p>
+                        <p><strong>Series:</strong> 4 series por ejercicio</p>
+                    </div>
+                </div>
+                <div class="workout-card">
+                    <div class="workout-header">
+                        <div>
+                            <div class="workout-title">Yoga Relax</div>
+                            <div class="workout-type">Flexibilidad</div>
+                        </div>
+                        <div class="workout-calories">180 cal</div>
+                    </div>
+                    <div class="workout-details">
+                        <p><strong>Duración:</strong> 60 minutos</p>
+                        <p><strong>Estilo:</strong> Hatha Yoga</p>
+                        <p><strong>Nivel:</strong> Intermedio</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="activity-goals">
+            <h3 style="margin-bottom: 25px; color: var(--text);">Progreso de Metas</h3>
+            
+            <div class="goal-item">
+                <div class="goal-header">
+                    <span class="goal-label">Meta de Pasos Diarios</span>
+                    <span class="goal-value">8,542/10,000</span>
+                </div>
+                <div class="goal-bar">
+                    <div class="goal-fill" style="width: 85%"></div>
+                </div>
+            </div>
+
+            <div class="goal-item">
+                <div class="goal-header">
+                    <span class="goal-label">Minutos de Ejercicio Semanal</span>
+                    <span class="goal-value">180/300</span>
+                </div>
+                <div class="goal-bar">
+                    <div class="goal-fill" style="width: 60%"></div>
+                </div>
+            </div>
+
+            <div class="goal-item">
+                <div class="goal-header">
+                    <span class="goal-label">Días Activos Esta Semana</span>
+                    <span class="goal-value">4/5</span>
+                </div>
+                <div class="goal-bar">
+                    <div class="goal-fill" style="width: 80%"></div>
+                </div>
+            </div>
+
+            <div class="goal-item">
+                <div class="goal-header">
+                    <span class="goal-label">Calorías Quemadas Mensuales</span>
+                    <span class="goal-value">15,800/25,000</span>
+                </div>
+                <div class="goal-bar">
+                    <div class="goal-fill" style="width: 63%"></div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Cargar información del usuario
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const userEmail = localStorage.getItem('userEmail') || 'usuario@email.com';
+            
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userEmail').textContent = userEmail;
+        });
+
+        function logout() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                localStorage.removeItem('userName');
+                localStorage.removeItem('userEmail');
+                localStorage.removeItem('userGoal');
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>

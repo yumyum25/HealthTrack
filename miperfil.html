@@ -1,0 +1,1808 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Perfil | Health Track</title>
+    <meta name="description" content="Gestiona tu información personal, métricas de salud y preferencias">
+    <meta name="theme-color" content="#00D4AA">
+
+    <!-- Fuentes e iconos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary: #00D4AA;
+            --primary-dark: #00B894;
+            --secondary: #6C63FF;
+            --accent: #FF6B95;
+            --bg: #F8FAFC;
+            --card: #FFFFFF;
+            --text: #2D3748;
+            --muted: #718096;
+            --border: #E6EEF3;
+            --danger: #E74C3C;
+            --warning: #F39C12;
+            --success: #27AE60;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            --radius: 12px;
+            --maxw: 1200px;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --bg: #071226;
+                --card: #0f1724;
+                --text: #E6EEF3;
+                --muted: #AAB7C7;
+                --border: #122235;
+            }
+        }
+
+        /* RESET Y ESTILOS BASE */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: 'Inter', system-ui, sans-serif;
+            color: var(--text);
+            background: var(--bg);
+            line-height: 1.6;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* HEADER FIJO - MEJORADO */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 12px 0;
+            box-shadow: var(--shadow);
+            height: 70px;
+        }
+
+        .container {
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .header-grid {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            height: 100%;
+        }
+
+        .brand a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: white;
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: 10px;
+            transition: 0.3s;
+        }
+
+        .brand a:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-1px);
+        }
+
+        .logo {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* ÁREA DE USUARIO MEJORADA */
+        .user-area {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            text-align: right;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 0.95rem;
+            white-space: nowrap;
+        }
+
+        .user-email {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            white-space: nowrap;
+        }
+
+        .btn {
+            cursor: pointer;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .btn-ghost {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            color: white;
+        }
+
+        .btn-ghost:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-1px);
+        }
+
+        /* NAVEGACIÓN FIJA */
+        nav {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            z-index: 999;
+            background: var(--card);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.08);
+            border-bottom: 1px solid var(--border);
+            height: 60px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: var(--maxw);
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 30px;
+            height: 100%;
+        }
+
+        .nav-list {
+            display: flex;
+            gap: 4px;
+            list-style: none;
+            flex: 1;
+        }
+
+        .nav-list a {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            color: var(--muted);
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: 0.3s;
+            position: relative;
+            white-space: nowrap;
+            font-size: 0.9rem;
+        }
+
+        .nav-list a::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            transition: 0.3s;
+            transform: translateX(-50%);
+        }
+
+        .nav-list a:hover,
+        .nav-list a.active {
+            color: var(--primary);
+            background: rgba(0,212,170,0.08);
+        }
+
+        .nav-list a:hover::before,
+        .nav-list a.active::before {
+            width: 80%;
+        }
+
+        /* BÚSQUEDA */
+        .nav-search {
+            position: relative;
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+        }
+
+        .nav-search input {
+            padding: 8px 14px 8px 36px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background: var(--bg);
+            color: var(--text);
+            width: 200px;
+            transition: all 0.3s ease;
+            font-size: 0.85rem;
+        }
+
+        .nav-search input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(0, 212, 170, 0.1);
+            width: 230px;
+        }
+
+        .nav-search i {
+            position: absolute;
+            left: 12px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* CONTENIDO PRINCIPAL */
+        main {
+            flex: 1;
+            margin-top: 130px;
+            padding: 0 20px;
+            max-width: var(--maxw);
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+        }
+
+        .page-title {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 24px;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .page-title h1 {
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 8px;
+        }
+
+        .lead {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        /* PESTAÑAS */
+        .tabs-container {
+            display: flex;
+            background: var(--card);
+            padding: 6px;
+            border-radius: var(--radius);
+            margin-bottom: 28px;
+            box-shadow: var(--shadow);
+            gap: 8px;
+            overflow-x: auto;
+        }
+
+        .tab-btn {
+            flex: 1;
+            padding: 12px 16px;
+            border: none;
+            background: transparent;
+            color: var(--muted);
+            font-weight: 600;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            white-space: nowrap;
+            transition: 0.3s;
+            font-size: 0.9rem;
+        }
+
+        .tab-btn.active {
+            background: rgba(0,212,170,0.1);
+            color: var(--primary);
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.4s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* PERFIL */
+        .profile-layout {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 24px;
+            margin-top: 20px;
+        }
+
+        .profile-sidebar,
+        .profile-content {
+            background: var(--card);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            box-shadow: 0 8px 20px rgba(0,212,170,0.3);
+        }
+
+        .profile-stats {
+            margin-top: 20px;
+        }
+
+        .profile-stat {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .profile-stat:last-child {
+            border-bottom: none;
+        }
+
+        /* FORMULARIOS */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: var(--bg);
+            color: var(--text);
+            transition: 0.3s;
+            font-size: 1rem;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,212,170,0.15);
+        }
+
+        .btn-primary,
+        .btn-save {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .btn-primary:hover,
+        .btn-save:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        /* MÉTRICAS DE SALUD */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 18px;
+            margin-bottom: 30px;
+        }
+
+        .metric-card {
+            background: var(--bg);
+            padding: 20px;
+            border-radius: var(--radius);
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .metric-card:hover {
+            background: var(--card);
+            box-shadow: var(--shadow);
+            transform: translateY(-3px);
+        }
+
+        .metric-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--primary);
+            margin-bottom: 5px;
+        }
+
+        .metric-label {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        /* CONFIGURACIÓN */
+        .settings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 28px;
+        }
+
+        .settings-section {
+            background: var(--card);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .section-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        .section-header h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin: 0;
+        }
+
+        /* DISPOSITIVOS */
+        .device-list {
+            display: grid;
+            gap: 15px;
+        }
+
+        .device-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background: var(--bg);
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            border: 1px solid var(--border);
+        }
+
+        .device-item:hover {
+            background: var(--card);
+            box-shadow: var(--shadow);
+            transform: translateY(-2px);
+        }
+
+        .device-info h4 {
+            margin-bottom: 5px;
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .device-info p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .device-status {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .status-connected {
+            color: var(--success);
+            font-weight: 600;
+        }
+
+        .status-disconnected {
+            color: var(--muted);
+            font-weight: 600;
+        }
+
+        .status-syncing {
+            color: var(--warning);
+            font-weight: 600;
+        }
+
+        .btn-connect {
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+        }
+
+        .btn-connect:hover {
+            background: var(--primary-dark);
+        }
+
+        /* ZONA DE PELIGRO */
+        .danger-zone {
+            border: 2px solid var(--danger);
+            background: rgba(231, 76, 60, 0.05);
+        }
+
+        .danger-zone .section-icon {
+            background: var(--danger);
+        }
+
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+            width: 100%;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .btn-danger:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        /* CHECKBOX Y TOGGLE STYLES */
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .checkbox-group:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .checkbox-group input {
+            accent-color: var(--primary);
+            width: 18px;
+            height: 18px;
+        }
+
+        .checkbox-group label {
+            margin-bottom: 0;
+            font-weight: 500;
+            cursor: pointer;
+            flex: 1;
+        }
+
+        .checkbox-description {
+            font-size: 0.85rem;
+            color: var(--muted);
+            margin-top: 2px;
+        }
+
+        /* TOGGLE SWITCH */
+        .toggle-group {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border-radius: 8px;
+            transition: background 0.2s ease;
+        }
+
+        .toggle-group:hover {
+            background: rgba(0, 0, 0, 0.02);
+        }
+
+        .toggle-switch {
+            position: relative;
+            display: inline-block;
+            width: 50px;
+            height: 24px;
+        }
+
+        .toggle-switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: var(--muted);
+            transition: .4s;
+            border-radius: 24px;
+        }
+
+        .toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .toggle-slider {
+            background-color: var(--primary);
+        }
+
+        input:checked + .toggle-slider:before {
+            transform: translateX(26px);
+        }
+
+        .toggle-label {
+            flex: 1;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        /* PROGRESS BAR */
+        .progress-container {
+            margin: 15px 0;
+        }
+
+        .progress-label {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+
+        .progress-bar {
+            height: 8px;
+            background: var(--border);
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 4px;
+            transition: width 0.5s ease;
+        }
+
+        /* FOOTER MEJORADO */
+        footer {
+            background: var(--card);
+            border-top: 1px solid var(--border);
+            margin-top: 60px;
+            padding: 50px 0 30px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-section h4 {
+            color: var(--text);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            position: relative;
+        }
+
+        .footer-section h4::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .footer-section p {
+            color: var(--muted);
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 12px;
+        }
+
+        .footer-links a {
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 4px 0;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateX(5px);
+        }
+
+        .footer-links a i {
+            width: 20px;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        .contact-info {
+            list-style: none;
+        }
+
+        .contact-info li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            margin-bottom: 15px;
+            color: var(--muted);
+        }
+
+        .contact-info i {
+            color: var(--primary);
+            font-size: 1.1rem;
+            margin-top: 2px;
+            width: 20px;
+            text-align: center;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .social-links a {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px;
+            height: 40px;
+            background: var(--bg);
+            color: var(--muted);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-links a:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid var(--border);
+            padding-top: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .footer-bottom p {
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .footer-heart {
+            color: var(--primary);
+            margin: 0 5px;
+        }
+
+        /* TOASTS */
+        .toasts {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            z-index: 9999;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .toast {
+            background: var(--card);
+            color: var(--text);
+            padding: 14px 20px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--border);
+            animation: slideIn 0.4s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: none;
+                opacity: 1;
+            }
+        }
+
+        /* RESPONSIVE */
+        @media (max-width: 992px) {
+            .profile-layout {
+                grid-template-columns: 1fr;
+            }
+            .settings-grid {
+                grid-template-columns: 1fr;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 30px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            main {
+                margin-top: 150px;
+            }
+            
+            .header-grid {
+                flex-direction: column;
+                text-align: center;
+                gap: 10px;
+                padding: 5px 0;
+            }
+            
+            header {
+                height: auto;
+                min-height: 80px;
+                padding: 8px 0;
+            }
+            
+            .user-area {
+                flex-direction: column;
+                gap: 8px;
+            }
+            
+            .user-info {
+                text-align: center;
+            }
+            
+            nav {
+                top: auto;
+                position: relative;
+                height: auto;
+            }
+            
+            .nav-container {
+                flex-direction: column;
+                gap: 10px;
+                padding: 10px 20px;
+            }
+            
+            .nav-list {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+            
+            .nav-search {
+                width: 100%;
+                margin-left: 0;
+            }
+            
+            .nav-search input {
+                width: 100%;
+            }
+            
+            .tabs-container {
+                flex-wrap: wrap;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-list {
+                flex-direction: column;
+                width: 100%;
+            }
+            
+            .nav-list a {
+                justify-content: center;
+            }
+            
+            .page-title {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .profile-sidebar,
+            .profile-content {
+                padding: 20px;
+            }
+            
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER MEJORADO -->
+    <header>
+        <div class="container header-grid">
+            <div class="brand">
+                <a href="#" aria-label="Health Track">
+                    <div class="logo"><i class="fas fa-heartbeat"></i></div>
+                    <div>
+                        <strong>Health Track</strong>
+                        <div style="font-weight:500;font-size:0.75rem;opacity:0.95">Panel de Usuario</div>
+                    </div>
+                </a>
+            </div>
+            
+            <!-- ÁREA DE USUARIO MEJORADA -->
+            <div class="user-area">
+                <div class="user-info">
+                    <div class="user-name" id="userName">María González</div>
+                    <div class="user-email" id="headerEmail">maria.gonzalez@email.com</div>
+                </div>
+                <button type="button" class="btn btn-ghost" id="btnLogout">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- NAVEGACIÓN -->
+    <nav aria-label="Navegación principal">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
+                <li><a href="#"><i class="fas fa-utensils"></i> Nutrición</a></li>
+                <li><a href="#"><i class="fas fa-running"></i> Actividad</a></li>
+                <li><a href="#"><i class="fas fa-bed"></i> Sueño</a></li>
+                <li><a href="#"><i class="fas fa-bell"></i> Recordatorios</a></li>
+                <li><a href="#" class="active"><i class="fas fa-user"></i> Mi Perfil</a></li>
+            </ul>
+            <div class="nav-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar..." aria-label="Buscar en Health Track">
+            </div>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        <div class="container">
+            <div class="page-title">
+                <div>
+                    <h1>Mi Perfil</h1>
+                    <p class="lead">Gestiona tu información personal, métricas de salud y preferencias</p>
+                </div>
+                <button type="button" class="btn" id="btnSync" style="background:var(--bg);color:var(--text);border:1px solid var(--border);">
+                    <i class="fas fa-sync-alt"></i> Sincronizar
+                </button>
+            </div>
+
+            <!-- PESTAÑAS COMPLETAS -->
+            <div class="tabs-container">
+                <button type="button" class="tab-btn active" data-tab="profile">
+                    <i class="fas fa-user-circle"></i> Información Personal
+                </button>
+                <button type="button" class="tab-btn" data-tab="health">
+                    <i class="fas fa-heartbeat"></i> Métricas de Salud
+                </button>
+                <button type="button" class="tab-btn" data-tab="preferences">
+                    <i class="fas fa-cog"></i> Preferencias
+                </button>
+                <button type="button" class="tab-btn" data-tab="devices">
+                    <i class="fas fa-watch"></i> Dispositivos
+                </button>
+                <button type="button" class="tab-btn" data-tab="danger">
+                    <i class="fas fa-exclamation-triangle"></i> Zona de Peligro
+                </button>
+            </div>
+
+            <!-- PESTAÑA INFORMACIÓN PERSONAL -->
+            <div class="tab-content active" id="profile-tab">
+                <div class="profile-layout">
+                    <div class="profile-sidebar">
+                        <div class="profile-avatar" id="userAvatar">MG</div>
+                        <h2 class="profile-name" id="displayName">María González</h2>
+                        <p class="profile-email" id="displayEmail">maria.gonzalez@email.com</p>
+                        <div class="profile-stats">
+                            <div class="profile-stat"><span>Miembro desde</span><strong>Mar 2024</strong></div>
+                            <div class="profile-stat"><span>Sesiones activas</span><strong>62 días</strong></div>
+                            <div class="profile-stat"><span>Logros</span><strong>15</strong></div>
+                            <div class="profile-stat"><span>Nivel</span><strong>Avanzado</strong></div>
+                        </div>
+                    </div>
+
+                    <div class="profile-content">
+                        <h3 style="font-size:1.6rem;margin-bottom:25px;">Información Personal</h3>
+                        <form id="profileForm">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="firstName">Nombre</label>
+                                    <input type="text" id="firstName" class="form-input" value="María" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="lastName">Apellido</label>
+                                    <input type="text" id="lastName" class="form-input" value="González" required>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="emailInput">Correo Electrónico</label>
+                                <input type="email" id="emailInput" class="form-input" value="maria.gonzalez@email.com" required>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="birthDate">Fecha de Nacimiento</label>
+                                    <input type="date" id="birthDate" class="form-input" value="1990-08-22">
+                                </div>
+                                <div class="form-group">
+                                    <label for="gender">Género</label>
+                                    <select id="gender" class="form-input">
+                                        <option value="female" selected>Femenino</option>
+                                        <option value="male">Masculino</option>
+                                        <option value="other">Otro</option>
+                                        <option value="prefer-not">Prefiero no decir</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="height">Altura (cm)</label>
+                                    <input type="number" id="height" class="form-input" value="165">
+                                </div>
+                                <div class="form-group">
+                                    <label for="weight">Peso (kg)</label>
+                                    <input type="number" id="weight" class="form-input" value="62">
+                                </div>
+                            </div>
+
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label for="phone">Teléfono</label>
+                                    <input type="tel" id="phone" class="form-input" value="+34 612 345 678">
+                                </div>
+                                <div class="form-group">
+                                    <label for="location">Ubicación</label>
+                                    <input type="text" id="location" class="form-input" value="Madrid, España">
+                                </div>
+                            </div>
+
+                            <button type="submit" class="btn-primary">
+                                <i class="fas fa-save"></i> Guardar Cambios
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA MÉTRICAS DE SALUD -->
+            <div class="tab-content" id="health-tab">
+                <div class="profile-content">
+                    <h3 style="font-size:1.6rem;margin-bottom:25px;">Métricas de Salud</h3>
+                    
+                    <div class="metrics-grid">
+                        <div class="metric-card">
+                            <div class="metric-value">72</div>
+                            <div class="metric-label">Ritmo Cardíaco (lpm)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">120/80</div>
+                            <div class="metric-label">Presión Arterial</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">98.6</div>
+                            <div class="metric-label">Temperatura (°F)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">22.8</div>
+                            <div class="metric-label">IMC</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">95</div>
+                            <div class="metric-label">Oxígeno en Sangre (%)</div>
+                        </div>
+                        <div class="metric-card">
+                            <div class="metric-value">8,542</div>
+                            <div class="metric-label">Pasos Hoy</div>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin: 25px 0 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">Historial de Peso</h4>
+                    <div class="progress-container">
+                        <div class="progress-label">
+                            <span>Meta: 58 kg</span>
+                            <span>62 kg</span>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 85%"></div>
+                        </div>
+                    </div>
+                    
+                    <h4 style="margin: 25px 0 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border);">Notas de Salud</h4>
+                    <div class="form-group">
+                        <textarea id="healthNotes" class="form-input" placeholder="Añade cualquier nota relevante sobre tu salud, medicación, alergias, etc." style="min-height: 100px;"></textarea>
+                    </div>
+                    <button class="btn-save" id="saveHealthNotes">
+                        <i class="fas fa-save"></i> Guardar Notas
+                    </button>
+                </div>
+            </div>
+
+            <!-- PESTAÑA PREFERENCIAS -->
+            <div class="tab-content" id="preferences-tab">
+                <div class="settings-grid">
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-bullseye"></i>
+                            </div>
+                            <h3>Metas Personales</h3>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="weightGoal">Meta de Peso (kg)</label>
+                            <input type="number" id="weightGoal" class="form-input" value="58">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="stepsGoal">Meta de Pasos Diarios</label>
+                            <input type="number" id="stepsGoal" class="form-input" value="10000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="waterGoal">Meta de Agua (ml)</label>
+                            <input type="number" id="waterGoal" class="form-input" value="2000">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="sleepGoal">Meta de Sueño (horas)</label>
+                            <input type="number" id="sleepGoal" class="form-input" value="8" step="0.5">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="caloriesGoal">Meta de Calorías Diarias</label>
+                            <input type="number" id="caloriesGoal" class="form-input" value="1800">
+                        </div>
+                        
+                        <button class="btn-save" id="saveGoals">
+                            <i class="fas fa-save"></i> Guardar Metas
+                        </button>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3>Notificaciones</h3>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="notifActivity" checked>
+                            <label for="notifActivity">
+                                Recordatorios de actividad
+                                <div class="checkbox-description">Recibir notificaciones para mantenerse activo</div>
+                            </label>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="notifWater" checked>
+                            <label for="notifWater">
+                                Recordatorios de hidratación
+                                <div class="checkbox-description">Notificaciones para beber agua regularmente</div>
+                            </label>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="notifSleep">
+                            <label for="notifSleep">
+                                Recordatorios de sueño
+                                <div class="checkbox-description">Alertas para mantener horarios de sueño regulares</div>
+                            </label>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="notifGoals" checked>
+                            <label for="notifGoals">
+                                Progreso de metas
+                                <div class="checkbox-description">Actualizaciones sobre tu progreso hacia las metas</div>
+                            </label>
+                        </div>
+                        
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="notifNews">
+                            <label for="notifNews">
+                                Noticias de salud
+                                <div class="checkbox-description">Artículos y consejos sobre salud y bienestar</div>
+                            </label>
+                        </div>
+                        
+                        <button class="btn-save" id="saveNotifications">
+                            <i class="fas fa-save"></i> Guardar Preferencias
+                        </button>
+                    </div>
+                    
+                    <div class="settings-section">
+                        <div class="section-header">
+                            <div class="section-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Privacidad</h3>
+                        </div>
+                        
+                        <div class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="privacyProfile" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <label for="privacyProfile" class="toggle-label">
+                                Perfil público
+                                <div class="checkbox-description">Permitir que otros usuarios vean tu perfil</div>
+                            </label>
+                        </div>
+                        
+                        <div class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="privacyActivity">
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <label for="privacyActivity" class="toggle-label">
+                                Actividad visible
+                                <div class="checkbox-description">Compartir tu actividad con amigos</div>
+                            </label>
+                        </div>
+                        
+                        <div class="toggle-group">
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="privacyStats" checked>
+                                <span class="toggle-slider"></span>
+                            </label>
+                            <label for="privacyStats" class="toggle-label">
+                                Estadísticas anónimas
+                                <div class="checkbox-description">Contribuir a estadísticas globales de forma anónima</div>
+                            </label>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="dataSharing">Compartir datos con:</label>
+                            <select id="dataSharing" class="form-input">
+                                <option value="none">Nadie</option>
+                                <option value="friends" selected>Solo amigos</option>
+                                <option value="all">Todos los usuarios</option>
+                            </select>
+                        </div>
+                        
+                        <button class="btn-save" id="savePrivacy">
+                            <i class="fas fa-save"></i> Guardar Configuración
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA DISPOSITIVOS -->
+            <div class="tab-content" id="devices-tab">
+                <div class="profile-content">
+                    <h3 style="font-size:1.6rem;margin-bottom:25px;">Dispositivos Conectados</h3>
+                    
+                    <div class="device-list">
+                        <div class="device-item">
+                            <div class="device-info">
+                                <h4>Apple Watch Series 7</h4>
+                                <p>Conectado hace 2 horas</p>
+                            </div>
+                            <div class="device-status">
+                                <span class="status-connected">Conectado</span>
+                                <button class="btn-connect">Desconectar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="device-item">
+                            <div class="device-info">
+                                <h4>Fitbit Charge 5</h4>
+                                <p>Última sincronización: Ayer</p>
+                            </div>
+                            <div class="device-status">
+                                <span class="status-disconnected">Desconectado</span>
+                                <button class="btn-connect">Conectar</button>
+                            </div>
+                        </div>
+                        
+                        <div class="device-item">
+                            <div class="device-info">
+                                <h4>Báscula Inteligente Withings</h4>
+                                <p>Sincronizando datos...</p>
+                            </div>
+                            <div class="device-status">
+                                <span class="status-syncing">Sincronizando</span>
+                                <button class="btn-connect" disabled>Espere...</button>
+                            </div>
+                        </div>
+                        
+                        <div class="device-item">
+                            <div class="device-info">
+                                <h4>Oura Ring Gen 3</h4>
+                                <p>Conectado hace 5 días</p>
+                            </div>
+                            <div class="device-status">
+                                <span class="status-connected">Conectado</span>
+                                <button class="btn-connect">Desconectar</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px; text-align: center;">
+                        <button class="btn-primary">
+                            <i class="fas fa-plus"></i> Agregar Nuevo Dispositivo
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PESTAÑA ZONA DE PELIGRO -->
+            <div class="tab-content" id="danger-tab">
+                <div class="settings-section danger-zone">
+                    <div class="section-header">
+                        <div class="section-icon">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <h3>Zona de Peligro</h3>
+                    </div>
+                    
+                    <p style="margin-bottom: 20px; color: var(--muted);">
+                        Estas acciones son irreversibles. Por favor, procede con precaución.
+                    </p>
+                    
+                    <div class="form-group">
+                        <button class="btn-danger" id="exportData">
+                            <i class="fas fa-download"></i> Exportar Todos Mis Datos
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button class="btn-danger" id="clearData">
+                            <i class="fas fa-trash"></i> Limpiar Datos Locales
+                        </button>
+                    </div>
+                    
+                    <div class="form-group">
+                        <button class="btn-danger" id="deleteAccount">
+                            <i class="fas fa-user-slash"></i> Eliminar Mi Cuenta Permanentemente
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- FOOTER MEJORADO -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <!-- Información de la empresa -->
+                <div class="footer-section">
+                    <h4>Health Track</h4>
+                    <p>Tu compañero de salud digital. Monitorea tu actividad, sueño, nutrición y bienestar general con nuestra plataforma integral.</p>
+                    <p>Fundada en 2020, nos dedicamos a mejorar la calidad de vida mediante el seguimiento inteligente de la salud.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <!-- Recursos -->
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-book-medical"></i> Guías de Salud</a></li>
+                        <li><a href="#"><i class="fas fa-video"></i> Tutoriales</a></li>
+                        <li><a href="#"><i class="fas fa-file-pdf"></i> Documentación</a></li>
+                        <li><a href="#"><i class="fas fa-mobile-alt"></i> App Móvil</a></li>
+                        <li><a href="#"><i class="fas fa-download"></i> Descargas</a></li>
+                    </ul>
+                </div>
+
+                <!-- Soporte -->
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul class="footer-links">
+                        <li><a href="#"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
+                        <li><a href="#"><i class="fas fa-comments"></i> Foro Comunitario</a></li>
+                        <li><a href="#"><i class="fas fa-life-ring"></i> Asistencia Técnica</a></li>
+                        <li><a href="#"><i class="fas fa-bug"></i> Reportar Problema</a></li>
+                        <li><a href="#"><i class="fas fa-lightbulb"></i> Sugerencias</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contacto -->
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul class="contact-info">
+                        <li>
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Calle Salud 123<br>Madrid, España 28001</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-phone"></i>
+                            <span>+34 900 123 456<br>Lun-Vie 9:00-18:00</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-envelope"></i>
+                            <span>info@healthtrack.com<br>soporte@healthtrack.com</span>
+                        </li>
+                        <li>
+                            <i class="fas fa-clock"></i>
+                            <span>Atención al cliente<br>24/7 para emergencias</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2024 Health Track. Todos los derechos reservados.</p>
+                <p>Desarrollado con <i class="fas fa-heart footer-heart"></i> para tu bienestar</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- TOASTS -->
+    <div class="toasts" id="toasts" aria-live="polite"></div>
+
+    <script>
+        (function () {
+            'use strict';
+
+            const $ = sel => document.querySelector(sel);
+            const $$ = sel => document.querySelectorAll(sel);
+
+            function toast(msg, time = 4000) {
+                const t = document.createElement('div');
+                t.className = 'toast';
+                t.textContent = msg;
+                $('#toasts').appendChild(t);
+                setTimeout(() => t.remove(), time);
+            }
+
+            // Carga inicial
+            document.addEventListener('DOMContentLoaded', () => {
+                const savedName = localStorage.getItem('userName') || 'María González';
+                const savedEmail = localStorage.getItem('userEmail') || 'maria.gonzalez@email.com';
+
+                $('#userName').textContent = savedName;
+                $('#headerEmail').textContent = savedEmail;
+                $('#displayName').textContent = savedName;
+                $('#displayEmail').textContent = savedEmail;
+
+                const initials = savedName.split(' ').map(n => n[0]).join('').slice(0,2).toUpperCase();
+                $('#userAvatar').textContent = initials || 'US';
+
+                loadFormData();
+                setupTabs();
+                setupDeviceButtons();
+            });
+
+            function loadFormData() {
+                const keys = ['FirstName','LastName','BirthDate','Gender','Height','Weight','Phone','Location'];
+                keys.forEach(k => {
+                    const value = localStorage.getItem('profile' + k);
+                    if (value && $('#' + k.toLowerCase())) $('#' + k.toLowerCase()).value = value;
+                });
+                const email = localStorage.getItem('userEmail');
+                if (email) $('#emailInput').value = email;
+                
+                // Cargar datos de otras pestañas
+                const goals = ['weightGoal', 'stepsGoal', 'waterGoal', 'sleepGoal', 'caloriesGoal'];
+                goals.forEach(id => {
+                    const value = localStorage.getItem(id);
+                    if (value && $('#' + id)) $('#' + id).value = value;
+                });
+                
+                const notifications = ['notifActivity', 'notifWater', 'notifSleep', 'notifGoals', 'notifNews'];
+                notifications.forEach(id => {
+                    const value = localStorage.getItem(id);
+                    if (value && $('#' + id)) $('#' + id).checked = value === 'true';
+                });
+                
+                const privacy = ['privacyProfile', 'privacyActivity', 'privacyStats'];
+                privacy.forEach(id => {
+                    const value = localStorage.getItem(id);
+                    if (value && $('#' + id)) $('#' + id).checked = value === 'true';
+                });
+                
+                const dataSharing = localStorage.getItem('dataSharing');
+                if (dataSharing && $('#dataSharing')) $('#dataSharing').value = dataSharing;
+                
+                const healthNotes = localStorage.getItem('healthNotes');
+                if (healthNotes && $('#healthNotes')) $('#healthNotes').value = healthNotes;
+            }
+
+            function setupTabs() {
+                $$('.tab-btn').forEach(btn => {
+                    btn.onclick = () => {
+                        $$('.tab-btn').forEach(b => b.classList.remove('active'));
+                        $$('.tab-content').forEach(c => c.classList.remove('active'));
+                        btn.classList.add('active');
+                        const tab = document.getElementById(btn.dataset.tab + '-tab');
+                        if (tab) tab.classList.add('active');
+                    };
+                });
+            }
+            
+            function setupDeviceButtons() {
+                $$('.btn-connect').forEach(btn => {
+                    btn.onclick = function() {
+                        const deviceItem = this.closest('.device-item');
+                        const status = deviceItem.querySelector('.status-connected, .status-disconnected, .status-syncing');
+                        
+                        if (status.classList.contains('status-connected')) {
+                            status.textContent = 'Desconectado';
+                            status.classList.remove('status-connected');
+                            status.classList.add('status-disconnected');
+                            this.textContent = 'Conectar';
+                            toast('Dispositivo desconectado');
+                        } else if (status.classList.contains('status-disconnected')) {
+                            status.textContent = 'Sincronizando';
+                            status.classList.remove('status-disconnected');
+                            status.classList.add('status-syncing');
+                            this.textContent = 'Espere...';
+                            this.disabled = true;
+                            
+                            // Simular proceso de conexión
+                            setTimeout(() => {
+                                status.textContent = 'Conectado';
+                                status.classList.remove('status-syncing');
+                                status.classList.add('status-connected');
+                                this.textContent = 'Desconectar';
+                                this.disabled = false;
+                                toast('Dispositivo conectado correctamente');
+                            }, 2000);
+                        }
+                    };
+                });
+            }
+
+            // Guardar perfil
+            $('#profileForm').onsubmit = e => {
+                e.preventDefault();
+
+                const first = $('#firstName').value.trim();
+                const last = $('#lastName').value.trim();
+                const email = $('#emailInput').value.trim();
+                const fullName = `${first} ${last}`;
+
+                localStorage.setItem('userName', fullName);
+                localStorage.setItem('userEmail', email);
+                localStorage.setItem('profileFirstName', first);
+                localStorage.setItem('profileLastName', last);
+                localStorage.setItem('profileBirthDate', $('#birthDate').value);
+                localStorage.setItem('profileGender', $('#gender').value);
+                localStorage.setItem('profileHeight', $('#height').value);
+                localStorage.setItem('profileWeight', $('#weight').value);
+                localStorage.setItem('profilePhone', $('#phone').value);
+                localStorage.setItem('profileLocation', $('#location').value);
+
+                // Actualizar UI
+                $('#userName').textContent = fullName;
+                $('#headerEmail').textContent = email;
+                $('#displayName').textContent = fullName;
+                $('#displayEmail').textContent = email;
+                $('#userAvatar').textContent = (first[0] + last[0]).toUpperCase();
+
+                toast('Perfil guardado correctamente');
+            };
+
+            // Guardar notas de salud
+            $('#saveHealthNotes').onclick = () => {
+                localStorage.setItem('healthNotes', $('#healthNotes').value);
+                toast('Notas de salud guardadas');
+            };
+
+            // Guardar metas
+            $('#saveGoals').onclick = () => {
+                const goals = ['weightGoal', 'stepsGoal', 'waterGoal', 'sleepGoal', 'caloriesGoal'];
+                goals.forEach(id => {
+                    localStorage.setItem(id, $('#' + id).value);
+                });
+                toast('Metas actualizadas correctamente');
+            };
+
+            // Guardar notificaciones
+            $('#saveNotifications').onclick = () => {
+                const notifications = ['notifActivity', 'notifWater', 'notifSleep', 'notifGoals', 'notifNews'];
+                notifications.forEach(id => {
+                    localStorage.setItem(id, $('#' + id).checked);
+                });
+                toast('Preferencias de notificaciones guardadas');
+            };
+
+            // Guardar privacidad
+            $('#savePrivacy').onclick = () => {
+                const privacy = ['privacyProfile', 'privacyActivity', 'privacyStats'];
+                privacy.forEach(id => {
+                    localStorage.setItem(id, $('#' + id).checked);
+                });
+                localStorage.setItem('dataSharing', $('#dataSharing').value);
+                toast('Configuración de privacidad guardada');
+            };
+
+            // Sincronizar
+            $('#btnSync').onclick = function() {
+                const txt = this.innerHTML;
+                this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sincronizando...';
+                this.disabled = true;
+                setTimeout(() => {
+                    this.innerHTML = txt;
+                    this.disabled = false;
+                    toast('Sincronización completada');
+                }, 1800);
+            };
+
+            // Exportar datos
+            $('#exportData').onclick = () => {
+                if (confirm('¿Estás seguro de que quieres exportar todos tus datos?')) {
+                    toast('Tus datos se están preparando para la exportación. Recibirás un email cuando estén listos.');
+                }
+            };
+
+            // Limpiar datos
+            $('#clearData').onclick = () => {
+                if (confirm('¿Estás seguro de que quieres eliminar todos los datos locales? Esta acción no afectará tu cuenta en la nube.')) {
+                    // Eliminar solo datos locales específicos
+                    const keysToRemove = [];
+                    for (let i = 0; i < localStorage.length; i++) {
+                        const key = localStorage.key(i);
+                        if (key.startsWith('profile') || key.includes('Goal') || key.includes('notif') || key.includes('privacy')) {
+                            keysToRemove.push(key);
+                        }
+                    }
+                    
+                    keysToRemove.forEach(key => localStorage.removeItem(key));
+                    toast('Datos locales eliminados correctamente');
+                }
+            };
+
+            // Eliminar cuenta
+            $('#deleteAccount').onclick = () => {
+                if (confirm('¿ESTÁS ABSOLUTAMENTE SEGURO? Esta acción eliminará permanentemente tu cuenta y todos tus datos. Esta acción no se puede deshacer.')) {
+                    if (confirm('Última confirmación: ¿Realmente quieres eliminar tu cuenta de Health Track?')) {
+                        localStorage.clear();
+                        toast('Tu cuenta ha sido eliminada. Serás redirigido a la página principal.');
+                        setTimeout(() => location.href = 'index.html', 2000);
+                    }
+                }
+            };
+
+            // Logout
+            $('#btnLogout').onclick = () => {
+                if (confirm('¿Cerrar sesión?')) {
+                    toast('Sesión cerrada');
+                    setTimeout(() => location.href = 'index.html', 1000);
+                }
+            };
+
+        })();
+    </script>
+</body>
+</html>

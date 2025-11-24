@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recordatorios - Health Track</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Estilos base del dashboard - igual que en estadisticas.html */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+        }
+
+        :root {
+            --primary: #00D4AA;
+            --primary-dark: #00B894;
+            --primary-light: #80FFE5;
+            --secondary: #6C63FF;
+            --accent: #FF6B95;
+            --text: #2D3748;
+            --text-light: #718096;
+            --background: #FFFFFF;
+            --background-alt: #F8FAFC;
+            --background-dark: #0F172A;
+            --border: #E2E8F0;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+            --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        body {
+            color: var(--text);
+            line-height: 1.7;
+            background: var(--background-alt);
+            min-height: 100vh;
+        }
+
+        .dashboard-header {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            padding: 20px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .user-info {
+            text-align: right;
+        }
+
+        .user-name {
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .user-email {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: none;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+
+        .btn-logout {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-logout:hover {
+            background: rgba(255, 255, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .dashboard-nav {
+            background: white;
+            padding: 15px 0;
+            box-shadow: var(--shadow);
+            position: sticky;
+            top: 80px;
+            z-index: 90;
+        }
+
+        .nav-content {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-light);
+            font-weight: 500;
+            padding: 10px 0;
+            border-bottom: 2px solid transparent;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--primary);
+            border-bottom-color: var(--primary);
+        }
+
+        .dashboard-main {
+            max-width: 1280px;
+            margin: 40px auto;
+            padding: 0 24px;
+        }
+
+        .page-header {
+            margin-bottom: 40px;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 12px;
+            color: var(--text);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-header p {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .reminders-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            gap: 20px;
+        }
+
+        .filter-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            background: white;
+            color: var(--text-light);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background: var(--primary);
+            color: white;
+            border-color: var(--primary);
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+
+        .reminders-grid {
+            display: grid;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .reminder-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            border-left: 4px solid var(--primary);
+        }
+
+        .reminder-card:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .reminder-card.overdue {
+            border-left-color: #e74c3c;
+            background: #fdf2f2;
+        }
+
+        .reminder-card.completed {
+            border-left-color: #27ae60;
+            background: #f0f9f4;
+            opacity: 0.7;
+        }
+
+        .reminder-info {
+            flex: 1;
+        }
+
+        .reminder-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .reminder-description {
+            color: var(--text-light);
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .reminder-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 0.85rem;
+            color: var(--text-light);
+        }
+
+        .reminder-time {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .reminder-actions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .btn-action {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn-complete {
+            background: var(--primary);
+            color: white;
+        }
+
+        .btn-edit {
+            background: var(--secondary);
+            color: white;
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-1px);
+        }
+
+        .recurring-reminders {
+            background: white;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .recurring-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .recurring-card {
+            background: var(--background-alt);
+            padding: 20px;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .recurring-card:hover {
+            background: white;
+            box-shadow: var(--shadow);
+        }
+
+        .recurring-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .recurring-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.1rem;
+        }
+
+        .recurring-title {
+            font-weight: 600;
+            color: var(--text);
+            font-size: 1.1rem;
+        }
+
+        .recurring-schedule {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        .recurring-status {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .status-active {
+            color: var(--primary);
+        }
+
+        .status-paused {
+            color: var(--text-light);
+        }
+
+        @media (max-width: 768px) {
+            .header-content {
+                flex-direction: column;
+                gap: 15px;
+                text-align: center;
+            }
+
+            .user-info {
+                text-align: center;
+            }
+
+            .nav-links {
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+            }
+
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .reminders-actions {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .filter-buttons {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .reminder-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+
+            .reminder-actions {
+                width: 100%;
+                justify-content: flex-end;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .dashboard-main {
+                padding: 0 16px;
+            }
+
+            .nav-links {
+                flex-direction: column;
+                align-items: center;
+                gap: 10px;
+            }
+
+            .recurring-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-buttons {
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="dashboard-header">
+        <div class="header-content">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <span>Health Track</span>
+            </div>
+            <div class="user-menu">
+                <div class="user-info">
+                    <div class="user-name" id="userName">Usuario</div>
+                    <div class="user-email" id="userEmail">usuario@email.com</div>
+                </div>
+                <button class="btn btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Cerrar Sesión
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav class="dashboard-nav">
+        <div class="nav-content">
+            <ul class="nav-links">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
+                <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
+                <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
+                <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
+                <li><a href="#" class="active"><i class="fas fa-bell"></i> Recordatorios</a></li>
+                <li><a href="perfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="page-header">
+            <h1>Recordatorios</h1>
+            <p>Mantén el control de tus hábitos saludables con recordatorios personalizados</p>
+        </div>
+
+        <div class="reminders-actions">
+            <div class="filter-buttons">
+                <button class="filter-btn active">Todos</button>
+                <button class="filter-btn">Pendientes</button>
+                <button class="filter-btn">Completados</button>
+                <button class="filter-btn">Hoy</button>
+            </div>
+            <button class="btn-primary" onclick="showNewReminderModal()">
+                <i class="fas fa-plus"></i> Nuevo Recordatorio
+            </button>
+        </div>
+
+        <div class="reminders-grid">
+            <div class="reminder-card">
+                <div class="reminder-info">
+                    <div class="reminder-title">
+                        <i class="fas fa-glass-whiskey" style="color: #00D4AA;"></i>
+                        Beber Agua
+                    </div>
+                    <div class="reminder-description">
+                        Tomar 250ml de agua para mantener la hidratación
+                    </div>
+                    <div class="reminder-meta">
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            Cada 2 horas • Próximo: 16:00
+                        </div>
+                    </div>
+                </div>
+                <div class="reminder-actions">
+                    <button class="btn-action btn-complete">
+                        <i class="fas fa-check"></i> Completar
+                    </button>
+                    <button class="btn-action btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reminder-card overdue">
+                <div class="reminder-info">
+                    <div class="reminder-title">
+                        <i class="fas fa-walking" style="color: #6C63FF;"></i>
+                        Caminata Diaria
+                    </div>
+                    <div class="reminder-description">
+                        30 minutos de caminata al aire libre
+                    </div>
+                    <div class="reminder-meta">
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            Diario • Vencido: 14:00
+                        </div>
+                    </div>
+                </div>
+                <div class="reminder-actions">
+                    <button class="btn-action btn-complete">
+                        <i class="fas fa-check"></i> Completar
+                    </button>
+                    <button class="btn-action btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reminder-card completed">
+                <div class="reminder-info">
+                    <div class="reminder-title">
+                        <i class="fas fa-pills" style="color: #FF6B95;"></i>
+                        Tomar Vitaminas
+                    </div>
+                    <div class="reminder-description">
+                        Complejo vitamínico con el desayuno
+                    </div>
+                    <div class="reminder-meta">
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            Diario • Completado: 08:30
+                        </div>
+                    </div>
+                </div>
+                <div class="reminder-actions">
+                    <button class="btn-action btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action btn-delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reminder-card">
+                <div class="reminder-info">
+                    <div class="reminder-title">
+                        <i class="fas fa-bed" style="color: #667eea;"></i>
+                        Hora de Dormir
+                    </div>
+                    <div class="reminder-description">
+                        Prepararse para dormir y apagar dispositivos
+                    </div>
+                    <div class="reminder-meta">
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            Diario • Próximo: 22:30
+                        </div>
+                    </div>
+                </div>
+                <div class="reminder-actions">
+                    <button class="btn-action btn-complete">
+                        <i class="fas fa-check"></i> Completar
+                    </button>
+                    <button class="btn-action btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="recurring-reminders">
+            <h3 class="section-title">Recordatorios Recurrentes</h3>
+            
+            <div class="recurring-grid">
+                <div class="recurring-card">
+                    <div class="recurring-header">
+                        <div class="recurring-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <div class="recurring-title">Entrenamiento</div>
+                    </div>
+                    <div class="recurring-schedule">
+                        Lunes, Miércoles, Viernes • 18:00
+                    </div>
+                    <div class="recurring-status status-active">
+                        <i class="fas fa-circle"></i> Activo
+                    </div>
+                </div>
+
+                <div class="recurring-card">
+                    <div class="recurring-header">
+                        <div class="recurring-icon">
+                            <i class="fas fa-weight"></i>
+                        </div>
+                        <div class="recurring-title">Pesaje Semanal</div>
+                    </div>
+                    <div class="recurring-schedule">
+                        Todos los lunes • 07:00
+                    </div>
+                    <div class="recurring-status status-active">
+                        <i class="fas fa-circle"></i> Activo
+                    </div>
+                </div>
+
+                <div class="recurring-card">
+                    <div class="recurring-header">
+                        <div class="recurring-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="recurring-title">Medición Presión</div>
+                    </div>
+                    <div class="recurring-schedule">
+                        Lunes y Jueves • 08:00
+                    </div>
+                    <div class="recurring-status status-paused">
+                        <i class="fas fa-circle"></i> Pausado
+                    </div>
+                </div>
+
+                <div class="recurring-card">
+                    <div class="recurring-header">
+                        <div class="recurring-icon">
+                            <i class="fas fa-notes-medical"></i>
+                        </div>
+                        <div class="recurring-title">Revisión Médica</div>
+                    </div>
+                    <div class="recurring-schedule">
+                        Mensual • Primer lunes
+                    </div>
+                    <div class="recurring-status status-active">
+                        <i class="fas fa-circle"></i> Activo
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Cargar información del usuario
+        document.addEventListener('DOMContentLoaded', function() {
+            const userName = localStorage.getItem('userName') || 'Usuario';
+            const userEmail = localStorage.getItem('userEmail') || 'usuario@email.com';
+            
+            document.getElementById('userName').textContent = userName;
+            document.getElementById('userEmail').textContent = userEmail;
+
+            // Configurar filtros
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterReminders(this.textContent);
+                });
+            });
+        });
+
+        function filterReminders(filter) {
+            const reminders = document.querySelectorAll('.reminder-card');
+            reminders.forEach(reminder => {
+                switch(filter) {
+                    case 'Pendientes':
+                        reminder.style.display = reminder.classList.contains('completed') ? 'none' : 'flex';
+                        break;
+                    case 'Completados':
+                        reminder.style.display = reminder.classList.contains('completed') ? 'flex' : 'none';
+                        break;
+                    case 'Hoy':
+                        // Lógica simplificada para mostrar recordatorios de hoy
+                        reminder.style.display = 'flex';
+                        break;
+                    default:
+                        reminder.style.display = 'flex';
+                }
+            });
+        }
+
+        function showNewReminderModal() {
+            alert('Funcionalidad para agregar nuevo recordatorio - En desarrollo');
+            // Aquí iría el código para mostrar un modal de creación de recordatorio
+        }
+
+        function logout() {
+            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
+                window.location.href = 'index.html';
+            }
+        }
+    </script>
+</body>
+</html>
