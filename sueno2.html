@@ -31,7 +31,7 @@
             <div class="user-area">
                 <div class="user-info">
                     <div class="user-name" id="userName">María González</div>
-                    <div class="user-email" id="headerEmail">maria.gonzalez@email.com</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
                 </div>
                 <button type="button" class="btn btn-ghost" id="btnLogout">
                     <i class="fas fa-sign-out-alt"></i> Salir
@@ -423,12 +423,6 @@
 
             // Carga inicial
             document.addEventListener('DOMContentLoaded', () => {
-                const savedName = localStorage.getItem('userName') || 'María González';
-                const savedEmail = localStorage.getItem('userEmail') || 'maria.gonzalez@email.com';
-
-                $('#userName').textContent = savedName;
-                $('#headerEmail').textContent = savedEmail;
-
                 setupTabs();
                 setupChartActions();
                 setupSleepForm();
@@ -539,16 +533,8 @@
                     toast('Datos de sueño sincronizados correctamente');
                 }, 1800);
             };
-
-            // Logout
-            $('#btnLogout').onclick = () => {
-                if (confirm('¿Cerrar sesión?')) {
-                    toast('Sesión cerrada');
-                    setTimeout(() => location.href = 'index.html', 1000);
-                }
-            };
-
         })();
     </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

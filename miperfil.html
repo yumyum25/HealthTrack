@@ -32,7 +32,7 @@
             <div class="user-area">
                 <div class="user-info">
                     <div class="user-name" id="userName">María González</div>
-                    <div class="user-email" id="headerEmail">maria.gonzalez@email.com</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
                 </div>
                 <button type="button" class="btn btn-ghost" id="btnLogout">
                     <i class="fas fa-sign-out-alt"></i> Salir
@@ -46,12 +46,12 @@
         <div class="nav-container">
             <ul class="nav-list">
                 <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a href="#"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
-                <li><a href="#"><i class="fas fa-utensils"></i> Nutrición</a></li>
-                <li><a href="#"><i class="fas fa-running"></i> Actividad</a></li>
-                <li><a href="#"><i class="fas fa-bed"></i> Sueño</a></li>
-                <li><a href="#"><i class="fas fa-bell"></i> Recordatorios</a></li>
-                <li><a href="#" class="active"><i class="fas fa-user"></i> Mi Perfil</a></li>
+                <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
+                <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
+                <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
+                <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
+                <li><a href="recordatorio.html"><i class="fas fa-bell"></i> Recordatorios</a></li>
+                <li><a href="miperfil.html" class="active"><i class="fas fa-user"></i> Mi Perfil</a></li>
             </ul>
             <div class="nav-search">
                 <i class="fas fa-search"></i>
@@ -471,78 +471,6 @@
         </div>
     </main>
 
-    <!-- FOOTER MEJORADO -->
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <!-- Información de la empresa -->
-                <div class="footer-section">
-                    <h4>Health Track</h4>
-                    <p>Tu compañero de salud digital. Monitorea tu actividad, sueño, nutrición y bienestar general con nuestra plataforma integral.</p>
-                    <p>Fundada en 2020, nos dedicamos a mejorar la calidad de vida mediante el seguimiento inteligente de la salud.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-
-                <!-- Recursos -->
-                <div class="footer-section">
-                    <h4>Recursos</h4>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-book-medical"></i> Guías de Salud</a></li>
-                        <li><a href="#"><i class="fas fa-video"></i> Tutoriales</a></li>
-                        <li><a href="#"><i class="fas fa-file-pdf"></i> Documentación</a></li>
-                        <li><a href="#"><i class="fas fa-mobile-alt"></i> App Móvil</a></li>
-                        <li><a href="#"><i class="fas fa-download"></i> Descargas</a></li>
-                    </ul>
-                </div>
-
-                <!-- Soporte -->
-                <div class="footer-section">
-                    <h4>Soporte</h4>
-                    <ul class="footer-links">
-                        <li><a href="#"><i class="fas fa-question-circle"></i> Centro de Ayuda</a></li>
-                        <li><a href="#"><i class="fas fa-comments"></i> Foro Comunitario</a></li>
-                        <li><a href="#"><i class="fas fa-life-ring"></i> Asistencia Técnica</a></li>
-                        <li><a href="#"><i class="fas fa-bug"></i> Reportar Problema</a></li>
-                        <li><a href="#"><i class="fas fa-lightbulb"></i> Sugerencias</a></li>
-                    </ul>
-                </div>
-
-                <!-- Contacto -->
-                <div class="footer-section">
-                    <h4>Contacto</h4>
-                    <ul class="contact-info">
-                        <li>
-                            <i class="fas fa-map-marker-alt"></i>
-                            <span>Calle Salud 123<br>Madrid, España 28001</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-phone"></i>
-                            <span>+34 900 123 456<br>Lun-Vie 9:00-18:00</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-envelope"></i>
-                            <span>info@healthtrack.com<br>soporte@healthtrack.com</span>
-                        </li>
-                        <li>
-                            <i class="fas fa-clock"></i>
-                            <span>Atención al cliente<br>24/7 para emergencias</span>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <p>&copy; 2024 Health Track. Todos los derechos reservados.</p>
-                <p>Desarrollado con <i class="fas fa-heart footer-heart"></i> para tu bienestar</p>
-            </div>
-        </div>
-    </footer>
-
     <!-- TOASTS -->
     <div class="toasts" id="toasts" aria-live="polite"></div>
 
@@ -566,8 +494,6 @@
                 const savedName = localStorage.getItem('userName') || 'María González';
                 const savedEmail = localStorage.getItem('userEmail') || 'maria.gonzalez@email.com';
 
-                $('#userName').textContent = savedName;
-                $('#headerEmail').textContent = savedEmail;
                 $('#displayName').textContent = savedName;
                 $('#displayEmail').textContent = savedEmail;
 
@@ -681,7 +607,7 @@
 
                 // Actualizar UI
                 $('#userName').textContent = fullName;
-                $('#headerEmail').textContent = email;
+                $('#userEmail').textContent = email;
                 $('#displayName').textContent = fullName;
                 $('#displayEmail').textContent = email;
                 $('#userAvatar').textContent = (first[0] + last[0]).toUpperCase();
@@ -769,16 +695,8 @@
                     }
                 }
             };
-
-            // Logout
-            $('#btnLogout').onclick = () => {
-                if (confirm('¿Cerrar sesión?')) {
-                    toast('Sesión cerrada');
-                    setTimeout(() => location.href = 'index.html', 1000);
-                }
-            };
-
         })();
     </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

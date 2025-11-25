@@ -5,9 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estadísticas - Health Track</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2.0.0"></script>
-    <script src="https://cdn.jsdelivr.net/npm/date-fns@2.29.3/index.min.js"></script>
 
     <!-- Fuentes e iconos -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -15,7 +12,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="dashboard-styles.css">
-
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 <body>
     <header>
@@ -33,7 +31,7 @@
             <div class="user-area">
                 <div class="user-info">
                     <div class="user-name" id="userName">María González</div>
-                    <div class="user-email" id="headerEmail">maria.gonzalez@email.com</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
                 </div>
                 <button type="button" class="btn btn-ghost" id="btnLogout">
                     <i class="fas fa-sign-out-alt"></i> Salir
@@ -338,22 +336,12 @@
         </div>
     </main>
     <script>
-        // Cargar información del usuario
         document.addEventListener('DOMContentLoaded', function() {
-            const userName = localStorage.getItem('userName') || 'María González';
-            const userEmail = localStorage.getItem('userEmail') || 'maria.gonzalez@email.com';
-
-            document.getElementById('userName').textContent = userName;
-            document.getElementById('headerEmail').textContent = userEmail;
-
             // Inicializar todas las funcionalidades
             initializeTimeFilters();
             initializeExportControls();
             initializeChartActions();
             initializeCharts();
-
-            // Configurar botón de logout
-            document.getElementById('btnLogout').addEventListener('click', logout);
         });
 
         // Funciones de filtrado de tiempo
@@ -646,15 +634,6 @@
             }, 1000);
         }
 
-        function logout() {
-            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userEmail');
-                localStorage.removeItem('userGoal');
-                window.location.href = 'index.html';
-            }
-        }
-
         // Función para mostrar notificaciones toast
         function toast(msg, time = 4000) {
             const t = document.createElement('div');
@@ -664,5 +643,6 @@
             setTimeout(() => t.remove(), time);
         }
     </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

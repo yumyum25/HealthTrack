@@ -23,7 +23,7 @@
             <div class="user-area">
                 <div class="user-info">
                     <div class="user-name" id="userName">María González</div>
-                    <div class="user-email" id="headerEmail">maria.gonzalez@email.com</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
                 </div>
                 <button type="button" class="btn btn-ghost" id="btnLogout">
                     <i class="fas fa-sign-out-alt"></i> Salir
@@ -35,7 +35,7 @@
     <nav aria-label="Navegación principal">
         <div class="nav-container">
             <ul class="nav-list">
-                <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> Inicio</a></li>
                 <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
                 <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
                 <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
@@ -121,14 +121,8 @@
     </main>
 
     <script>
-        // Cargar información del usuario
         document.addEventListener('DOMContentLoaded', function() {
-            const userName = localStorage.getItem('userName') || 'Usuario';
-            const userEmail = localStorage.getItem('userEmail') || 'usuario@email.com';
             const userGoal = localStorage.getItem('userGoal') || 'No especificado';
-            
-            document.getElementById('userName').textContent = userName;
-            document.getElementById('userEmail').textContent = userEmail;
             
             // Traducir objetivo a texto legible
             const goalTranslations = {
@@ -143,18 +137,7 @@
             const displayGoal = goalTranslations[userGoal] || userGoal;
             document.getElementById('userGoal').textContent = displayGoal;
         });
-
-        function logout() {
-            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                // Limpiar datos de sesión
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userEmail');
-                localStorage.removeItem('userGoal');
-                
-                // Redirigir a la página principal
-                window.location.href = 'index.html';
-            }
-        }
     </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
