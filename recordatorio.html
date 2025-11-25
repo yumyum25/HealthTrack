@@ -23,7 +23,7 @@
             <div class="user-area">
                 <div class="user-info">
                     <div class="user-name" id="userName">María González</div>
-                    <div class="user-email" id="headerEmail">maria.gonzalez@email.com</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
                 </div>
                 <button type="button" class="btn btn-ghost" id="btnLogout">
                     <i class="fas fa-sign-out-alt"></i> Salir
@@ -40,7 +40,7 @@
                 <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
                 <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
                 <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
-                <li><a href="#" class="active"><i class="fas fa-bell"></i> Recordatorios</a></li>
+                <li><a href="recordatorio.html" class="active"><i class="fas fa-bell"></i> Recordatorios</a></li>
                 <li><a href="miperfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
             </ul>
             <div class="nav-search">
@@ -240,16 +240,8 @@
             </div>
         </div>
     </main>
-
     <script>
-        // Cargar información del usuario
         document.addEventListener('DOMContentLoaded', function() {
-            const userName = localStorage.getItem('userName') || 'Usuario';
-            const userEmail = localStorage.getItem('userEmail') || 'usuario@email.com';
-            
-            document.getElementById('userName').textContent = userName;
-            document.getElementById('userEmail').textContent = userEmail;
-
             // Configurar filtros
             const filterButtons = document.querySelectorAll('.filter-btn');
             filterButtons.forEach(btn => {
@@ -285,12 +277,7 @@
             alert('Funcionalidad para agregar nuevo recordatorio - En desarrollo');
             // Aquí iría el código para mostrar un modal de creación de recordatorio
         }
-
-        function logout() {
-            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                window.location.href = 'index.html';
-            }
-        }
     </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

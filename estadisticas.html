@@ -5,7 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estadísticas - Health Track</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Fuentes e iconos -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="dashboard-styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script>
 </head>
 <body>
     <header>
@@ -23,7 +31,7 @@
             <div class="user-area">
                 <div class="user-info">
                     <div class="user-name" id="userName">María González</div>
-                    <div class="user-email" id="headerEmail">maria.gonzalez@email.com</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
                 </div>
                 <button type="button" class="btn btn-ghost" id="btnLogout">
                     <i class="fas fa-sign-out-alt"></i> Salir
@@ -36,7 +44,7 @@
         <div class="nav-container">
             <ul class="nav-list">
                 <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a href="#" class="active"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
+                <li><a href="estadisticas.html" class="active"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
                 <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
                 <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
                 <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
@@ -50,128 +58,119 @@
         </div>
     </nav>
 
-    <main class="dashboard-main">
-        <div class="page-header">
-            <h1>Estadísticas de Salud</h1>
-            <p>Visualiza tu progreso y tendencias de salud a lo largo del tiempo</p>
-        </div>
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1>Estadísticas de Salud</h1>
+                <p>Visualiza tu progreso y tendencias de salud a lo largo del tiempo</p>
+            </div>
 
-        <div class="time-filters">
-            <button class="time-filter active">7 días</button>
-            <button class="time-filter">30 días</button>
-            <button class="time-filter">3 meses</button>
-            <button class="time-filter">1 año</button>
-        </div>
+            <div class="time-filters">
+                <button class="time-filter active">7 días</button>
+                <button class="time-filter">30 días</button>
+                <button class="time-filter">3 meses</button>
+                <button class="time-filter">1 año</button>
+            </div>
 
-        <div class="stats-overview">
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-weight" style="color: #FF6B95;"></i>
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-weight" style="color: #FF6B95;"></i>
+                    </div>
+                    <div class="stat-number">68.5 kg</div>
+                    <div class="stat-label">Peso Actual</div>
                 </div>
-                <div class="stat-number">68.5 kg</div>
-                <div class="stat-label">Peso Actual</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-heartbeat" style="color: #e74c3c;"></i>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-heartbeat" style="color: #e74c3c;"></i>
+                    </div>
+                    <div class="stat-number">72 lpm</div>
+                    <div class="stat-label">Ritmo Cardíaco</div>
                 </div>
-                <div class="stat-number">72 lpm</div>
-                <div class="stat-label">Ritmo Cardíaco</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-tachometer-alt" style="color: #6C63FF;"></i>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-tachometer-alt" style="color: #6C63FF;"></i>
+                    </div>
+                    <div class="stat-number">120/80</div>
+                    <div class="stat-label">Presión Arterial</div>
                 </div>
-                <div class="stat-number">120/80</div>
-                <div class="stat-label">Presión Arterial</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-icon">
-                    <i class="fas fa-burn" style="color: #00D4AA;"></i>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-burn" style="color: #00D4AA;"></i>
+                    </div>
+                    <div class="stat-number">22.5</div>
+                    <div class="stat-label">Índice de Masa Corporal</div>
                 </div>
-                <div class="stat-number">22.5</div>
-                <div class="stat-label">Índice de Masa Corporal</div>
             </div>
-        </div>
 
-        <div class="charts-grid">
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3 class="chart-title">Progreso de Peso</h3>
+            <div class="charts-grid">
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Progreso de Peso</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="weightChart"></canvas>
+                    </div>
                 </div>
-                <div class="chart-container">
-                    <div class="chart-placeholder">
-                        <i class="fas fa-chart-line" style="font-size: 3rem; margin-right: 15px;"></i>
-                        Gráfico de progreso de peso
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3 class="chart-title">Actividad Semanal</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="activityChart"></canvas>
                     </div>
                 </div>
             </div>
-            <div class="chart-card">
-                <div class="chart-header">
-                    <h3 class="chart-title">Actividad Semanal</h3>
-                </div>
-                <div class="chart-container">
-                    <div class="chart-placeholder">
-                        <i class="fas fa-chart-bar" style="font-size: 3rem; margin-right: 15px;"></i>
-                        Gráfico de actividad semanal
+
+            <div class="progress-section">
+                <h3 style="margin-bottom: 25px; color: var(--text);">Progreso de Objetivos</h3>
+
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Pérdida de peso</span>
+                        <span class="progress-value">75%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 75%"></div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div class="progress-section">
-            <h3 style="margin-bottom: 25px; color: var(--text);">Progreso de Objetivos</h3>
-            
-            <div class="progress-item">
-                <div class="progress-header">
-                    <span class="progress-label">Pérdida de peso</span>
-                    <span class="progress-value">75%</span>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Actividad física semanal</span>
+                        <span class="progress-value">60%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 60%"></div>
+                    </div>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 75%"></div>
-                </div>
-            </div>
 
-            <div class="progress-item">
-                <div class="progress-header">
-                    <span class="progress-label">Actividad física semanal</span>
-                    <span class="progress-value">60%</span>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Consumo de agua diario</span>
+                        <span class="progress-value">90%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 90%"></div>
+                    </div>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 60%"></div>
-                </div>
-            </div>
 
-            <div class="progress-item">
-                <div class="progress-header">
-                    <span class="progress-label">Consumo de agua diario</span>
-                    <span class="progress-value">90%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 90%"></div>
-                </div>
-            </div>
-
-            <div class="progress-item">
-                <div class="progress-header">
-                    <span class="progress-label">Horas de sueño</span>
-                    <span class="progress-value">85%</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill" style="width: 85%"></div>
+                <div class="progress-item">
+                    <div class="progress-header">
+                        <span class="progress-label">Horas de sueño</span>
+                        <span class="progress-value">85%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" style="width: 85%"></div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
-
     <script>
-        // Cargar información del usuario
         document.addEventListener('DOMContentLoaded', function() {
-            const userName = localStorage.getItem('userName') || 'Usuario';
-            const userEmail = localStorage.getItem('userEmail') || 'usuario@email.com';
-            
-            document.getElementById('userName').textContent = userName;
-            document.getElementById('userEmail').textContent = userEmail;
+            // Cargar estadísticas del usuario
+            loadUserStats();
 
             // Configurar filtros de tiempo
             const timeFilters = document.querySelectorAll('.time-filter');
@@ -179,18 +178,121 @@
                 filter.addEventListener('click', function() {
                     timeFilters.forEach(f => f.classList.remove('active'));
                     this.classList.add('active');
+                    updateCharts(this.textContent.trim());
                 });
             });
+
+            // Inicializar gráficos
+            initializeCharts();
         });
 
-        function logout() {
-            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userEmail');
-                localStorage.removeItem('userGoal');
-                window.location.href = 'index.html';
+        function loadUserStats() {
+            const userStats = JSON.parse(localStorage.getItem('userStats')) || getDefaultStats();
+
+            // Actualizar tarjetas de estadísticas
+            const statNumbers = document.querySelectorAll('.stat-number');
+            if (statNumbers.length >= 4) {
+                statNumbers[0].textContent = `${userStats.currentWeight} kg`;
+                statNumbers[1].textContent = `${userStats.heartRate} lpm`;
+                statNumbers[2].textContent = userStats.bloodPressure;
+                statNumbers[3].textContent = userStats.bmi;
             }
         }
+
+        function getDefaultStats() {
+            return {
+                currentWeight: 68.5,
+                heartRate: 72,
+                bloodPressure: "120/80",
+                bmi: 22.5
+            };
+        }
+
+        function initializeCharts() {
+            // Gráfico de progreso de peso
+            const weightCtx = document.getElementById('weightChart');
+            if (weightCtx) {
+                const weightChart = new Chart(weightCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                        datasets: [{
+                            label: 'Peso (kg)',
+                            data: [69.2, 69.0, 68.8, 68.7, 68.6, 68.5, 68.5],
+                            borderColor: '#00D4AA',
+                            backgroundColor: 'rgba(0, 212, 170, 0.1)',
+                            tension: 0.4,
+                            fill: true
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: false,
+                                min: 68,
+                                max: 70
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Gráfico de actividad semanal
+            const activityCtx = document.getElementById('activityChart');
+            if (activityCtx) {
+                const activityChart = new Chart(activityCtx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom'],
+                        datasets: [{
+                            label: 'Minutos de actividad',
+                            data: [45, 60, 30, 75, 90, 45, 60],
+                            backgroundColor: '#6C63FF',
+                            borderRadius: 8
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        },
+                        scales: {
+                            y: {
+                                beginAtZero: true,
+                                max: 120
+                            }
+                        }
+                    }
+                });
+            }
+        }
+
+        function updateCharts(timeRange) {
+            // En una implementación real, aquí obtendrías nuevos datos según el rango de tiempo
+            console.log(`Actualizando gráficos para: ${timeRange}`);
+            // Por ahora, solo recargamos los gráficos
+            initializeCharts();
+        }
+
+        // Función para mostrar notificaciones toast
+        function toast(msg, time = 4000) {
+            const t = document.createElement('div');
+            t.className = 'toast';
+            t.textContent = msg;
+            document.getElementById('toasts').appendChild(t);
+            setTimeout(() => t.remove(), time);
+        }
     </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>

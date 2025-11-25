@@ -23,7 +23,7 @@
             <div class="user-area">
                 <div class="user-info">
                     <div class="user-name" id="userName">María González</div>
-                    <div class="user-email" id="headerEmail">maria.gonzalez@email.com</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
                 </div>
                 <button type="button" class="btn btn-ghost" id="btnLogout">
                     <i class="fas fa-sign-out-alt"></i> Salir
@@ -37,7 +37,7 @@
             <ul class="nav-list">
                 <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
                 <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
-                <li><a href="#" class="active"><i class="fas fa-utensils"></i> Nutrición</a></li>
+                <li><a href="nutricion.html" class="active"><i class="fas fa-utensils"></i> Nutrición</a></li>
                 <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
                 <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
                 <li><a href="recordatorio.html"><i class="fas fa-bell"></i> Recordatorios</a></li>
@@ -164,25 +164,6 @@
             </div>
         </div>
     </main>
-
-    <script>
-        // Cargar información del usuario
-        document.addEventListener('DOMContentLoaded', function() {
-            const userName = localStorage.getItem('userName') || 'Usuario';
-            const userEmail = localStorage.getItem('userEmail') || 'usuario@email.com';
-            
-            document.getElementById('userName').textContent = userName;
-            document.getElementById('userEmail').textContent = userEmail;
-        });
-
-        function logout() {
-            if (confirm('¿Estás seguro de que quieres cerrar sesión?')) {
-                localStorage.removeItem('userName');
-                localStorage.removeItem('userEmail');
-                localStorage.removeItem('userGoal');
-                window.location.href = 'index.html';
-            }
-        }
-    </script>
+    <script src="dashboard.js"></script>
 </body>
 </html>
