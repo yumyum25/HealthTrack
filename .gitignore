@@ -1,3 +1,7 @@
-node_modules
+.gradle
+build
+out
 *.log
-test-results/
+*.class
+.idea
+*.iml
