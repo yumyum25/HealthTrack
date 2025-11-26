@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nutrición - Health Track</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="container header-grid">
+            <div class="brand">
+                <a href="#" aria-label="Health Track">
+                    <div class="logo"><i class="fas fa-heartbeat"></i></div>
+                    <div>
+                        <strong>Health Track</strong>
+                        <div style="font-weight:500;font-size:0.75rem;opacity:0.95">Panel de Usuario</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="user-area">
+                <div class="user-info">
+                    <div class="user-name" id="userName">María González</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
+                </div>
+                <button type="button" class="btn btn-ghost" id="btnLogout">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav aria-label="Navegación principal">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
+                <li><a href="nutricion.html" class="active"><i class="fas fa-utensils"></i> Nutrición</a></li>
+                <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
+                <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
+                <li><a href="recordatorio.html"><i class="fas fa-bell"></i> Recordatorios</a></li>
+                <li><a href="miperfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+            </ul>
+            <div class="nav-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar..." aria-label="Buscar en Health Track">
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="page-header">
+            <h1>Control de Nutrición</h1>
+            <p>Registra tus comidas y lleva un control de tu ingesta calórica</p>
+        </div>
+
+        <div class="nutrition-overview">
+            <div class="nutrition-card">
+                <div class="nutrition-icon">
+                    <i class="fas fa-burn" style="color: #FF6B95;"></i>
+                </div>
+                <div class="nutrition-number">1,850</div>
+                <div class="nutrition-label">Calorías Consumidas</div>
+            </div>
+            <div class="nutrition-card">
+                <div class="nutrition-icon">
+                    <i class="fas fa-bullseye" style="color: #6C63FF;"></i>
+                </div>
+                <div class="nutrition-number">2,100</div>
+                <div class="nutrition-label">Meta Calórica</div>
+            </div>
+            <div class="nutrition-card">
+                <div class="nutrition-icon">
+                    <i class="fas fa-apple-alt" style="color: #00D4AA;"></i>
+                </div>
+                <div class="nutrition-number">45%</div>
+                <div class="nutrition-label">Carbohidratos</div>
+            </div>
+            <div class="nutrition-card">
+                <div class="nutrition-icon">
+                    <i class="fas fa-drumstick-bite" style="color: #667eea;"></i>
+                </div>
+                <div class="nutrition-number">30%</div>
+                <div class="nutrition-label">Proteínas</div>
+            </div>
+        </div>
+
+        <div class="meal-section">
+            <div class="section-header">
+                <h3 class="section-title">Desayuno</h3>
+                <button class="btn-add">
+                    <i class="fas fa-plus"></i> Agregar Alimento
+                </button>
+            </div>
+            <div class="meal-items">
+                <div class="meal-item">
+                    <div class="meal-info">
+                        <h4>Avena con Frutas</h4>
+                        <p>1 taza de avena, 1 plátano, 1 cucharada de miel</p>
+                    </div>
+                    <div class="meal-calories">350 cal</div>
+                </div>
+                <div class="meal-item">
+                    <div class="meal-info">
+                        <h4>Yogur Griego</h4>
+                        <p>1 envase de yogur griego natural</p>
+                    </div>
+                    <div class="meal-calories">150 cal</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="meal-section">
+            <div class="section-header">
+                <h3 class="section-title">Almuerzo</h3>
+                <button class="btn-add">
+                    <i class="fas fa-plus"></i> Agregar Alimento
+                </button>
+            </div>
+            <div class="meal-items">
+                <div class="meal-item">
+                    <div class="meal-info">
+                        <h4>Ensalada de Pollo</h4>
+                        <p>Pechuga de pollo a la plancha, lechuga, tomate, aguacate</p>
+                    </div>
+                    <div class="meal-calories">450 cal</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="meal-section">
+            <div class="section-header">
+                <h3 class="section-title">Cena</h3>
+                <button class="btn-add">
+                    <i class="fas fa-plus"></i> Agregar Alimento
+                </button>
+            </div>
+            <div class="meal-items">
+                <div class="meal-item">
+                    <div class="meal-info">
+                        <h4>Salmón al Horno</h4>
+                        <p>Filete de salmón con vegetales al vapor</p>
+                    </div>
+                    <div class="meal-calories">400 cal</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="water-tracker">
+            <div class="water-header">
+                <h3 class="section-title">Seguimiento de Agua</h3>
+                <div class="water-goal">
+                    <div class="water-goal-number">1.8L</div>
+                    <div class="water-goal-label">Meta Diaria</div>
+                </div>
+            </div>
+            <div class="water-buttons">
+                <div class="water-btn">+250ml</div>
+                <div class="water-btn">+500ml</div>
+                <div class="water-btn">+750ml</div>
+                <div class="water-btn">+1L</div>
+            </div>
+        </div>
+    </main>
+    <script src="dashboard.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+/* Estilos generales modernos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+:root {
+    --primary: #00D4AA;
+    --primary-dark: #00B894;
+    --primary-light: #80FFE5;
+    --secondary: #6C63FF;
+    --accent: #FF6B95;
+    --text: #2D3748;
+    --text-light: #718096;
+    --background: #FFFFFF;
+    --background-alt: #F8FAFC;
+    --background-dark: #0F172A;
+    --border: #E2E8F0;
+    --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+    --shadow-lg: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+body {
+    color: var(--text);
+    line-height: 1.7;
+    background: var(--background);
+    overflow-x: hidden;
+}
+
+.container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 24px;
+}

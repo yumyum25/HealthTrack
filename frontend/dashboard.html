@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel de Control - Health Track</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="container header-grid">
+            <div class="brand">
+                <a href="#" aria-label="Health Track">
+                    <div class="logo"><i class="fas fa-heartbeat"></i></div>
+                    <div>
+                        <strong>Health Track</strong>
+                        <div style="font-weight:500;font-size:0.75rem;opacity:0.95">Panel de Usuario</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="user-area">
+                <div class="user-info">
+                    <div class="user-name" id="userName">María González</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
+                </div>
+                <button type="button" class="btn btn-ghost" id="btnLogout">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav aria-label="Navegación principal">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="dashboard.html" class="active"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
+                <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
+                <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
+                <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
+                <li><a href="recordatorio.html"><i class="fas fa-bell"></i> Recordatorios</a></li>
+                <li><a href="miperfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+            </ul>
+            <div class="nav-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar..." aria-label="Buscar en Health Track">
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="welcome-banner">
+            <h1>¡Bienvenido a Health Track!</h1>
+            <p>Tu viaje hacia una vida más saludable comienza ahora. Monitorea tu progreso y alcanza tus objetivos con nuestras herramientas personalizadas.</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-fire" style="color: #FF6B95;"></i>
+                </div>
+                <div class="stat-number">1,250</div>
+                <div class="stat-label">Calorías Quemadas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-shoe-prints" style="color: #6C63FF;"></i>
+                </div>
+                <div class="stat-number">8,542</div>
+                <div class="stat-label">Pasos Hoy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-glass-whiskey" style="color: #00D4AA;"></i>
+                </div>
+                <div class="stat-number">1.8L</div>
+                <div class="stat-label">Agua Consumida</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-moon" style="color: #667eea;"></i>
+                </div>
+                <div class="stat-number">7h 30m</div>
+                <div class="stat-label">Sueño Promedio</div>
+            </div>
+        </div>
+
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📊</div>
+                <h3>Seguimiento de Salud</h3>
+                <p>Monitorea tus signos vitales, peso, presión arterial y más. Mantén un registro completo de tu salud con gráficos interactivos.</p>
+                <button class="btn-feature">
+                    <i class="fas fa-chart-bar"></i> Comenzar Seguimiento
+                </button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🏃‍♂️</div>
+                <h3>Actividad Física</h3>
+                <p>Registra tus entrenamientos, establece metas y recibe recomendaciones personalizadas para mejorar tu condición física.</p>
+                <button class="btn-feature">
+                    <i class="fas fa-running"></i> Ver Actividad
+                </button>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🍎</div>
+                <h3>Nutrición Balanceada</h3>
+                <p>Lleva un control de tu alimentación y recibe planes nutricionales adaptados a tus objetivos de salud y preferencias.</p>
+                <button class="btn-feature">
+                    <i class="fas fa-utensils"></i> Planificar Comidas
+                </button>
+            </div>
+        </div>
+
+        <div class="goal-indicator">
+            <h3>Tu Objetivo Principal</h3>
+            <p class="goal-text" id="userGoal">Cargando objetivo...</p>
+        </div>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const userGoal = localStorage.getItem('userGoal') || 'No especificado';
+            
+            // Traducir objetivo a texto legible
+            const goalTranslations = {
+                'weight-loss': 'Pérdida de peso',
+                'fitness': 'Mejorar condición física',
+                'health-monitoring': 'Monitoreo de salud',
+                'nutrition': 'Mejorar alimentación',
+                'stress-management': 'Manejo del estrés',
+                'other': 'Otro objetivo personalizado'
+            };
+            
+            const displayGoal = goalTranslations[userGoal] || userGoal;
+            document.getElementById('userGoal').textContent = displayGoal;
+        });
+    </script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

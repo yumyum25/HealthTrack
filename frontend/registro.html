@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro - Health Track</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+
+<body>
+    <!-- Encabezado con menú - Coincidente con index.html -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo-container">
+                    <div class="logo">HT</div>
+                    <div class="logo-text">Health Track</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html#inicio">Inicio</a></li>
+                    <li><a href="index.html#caracteristicas">Características</a></li>
+                    <li><a href="index.html#demo">Demo</a></li>
+                    <li><a href="index.html#descargas">Descargas</a></li>
+                    <li><a href="index.html#preguntas">FAQ</a></li>
+                    <li><a href="index.html#contacto">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección de registro -->
+    <section class="register-section">
+        <div class="container">
+            <div class="register-container">
+                <div class="register-title">
+                    <h1>Crear Cuenta</h1>
+                    <p>Únete a Health Track y comienza a mejorar tu bienestar</p>
+                </div>
+
+                <form id="register-form">
+                    <div class="form-group">
+                        <label for="name" class="form-label">Nombre Completo</label>
+                        <input type="text" id="name" class="form-input" placeholder="Ingresa tu nombre completo"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email" class="form-label">Correo Electrónico</label>
+                        <input type="email" id="email" class="form-input" placeholder="ejemplo@correo.com" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="password" class="form-label">Contraseña</label>
+                        <input type="password" id="password" class="form-input" placeholder="Crea una contraseña segura"
+                            required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="confirm-password" class="form-label">Confirmar Contraseña</label>
+                        <input type="password" id="confirm-password" class="form-input"
+                            placeholder="Repite tu contraseña" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-birthday-cake"></i>
+                                Edad
+                            </label>
+                            <input type="number" class="form-input" id="age" name="age" min="13" max="120" required
+                                placeholder="Edad">
+                            <div class="error-message" id="ageError">Debes tener al menos 13 años</div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">
+                                <i class="fas fa-venus-mars"></i>
+                                Género
+                            </label>
+                            <select class="form-input" id="gender" name="gender" required>
+                                <option value="">Seleccionar</option>
+                                <option value="male">Masculino</option>
+                                <option value="female">Femenino</option>
+                                <option value="other">Otro</option>
+                                <option value="prefer-not-to-say">Prefiero no decir</option>
+                            </select>
+                            <div class="error-message" id="genderError">Por favor selecciona una opción</div>
+                        </div>
+                    </div>
+
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="terms" required>
+                        <label for="terms">Acepto los <a href="#">Términos de Servicio</a> y la <a href="#">Política de
+                                Privacidad</a> de Health Track</label>
+                    </div>
+
+                    <div class="form-buttons">
+                        <button type="submit" class="btn-submit">
+                            <i class="fas fa-user-plus"></i>
+                            Crear Cuenta
+                        </button>
+                        <a href="inicio.html" class="btn-login">
+                            <i class="fas fa-sign-in-alt"></i>
+                            ¿Ya tienes cuenta? Inicia Sesión
+                        </a>
+                    </div>
+                </form>
+
+                <div class="login-link">
+                    <p>Volver al <a href="index.html">Inicio</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de página - Coincidente con index.html -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo-container">
+                    <div class="footer-logo">HT</div>
+                    <div class="logo-text">Health Track</div>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Términos de Servicio</a>
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Contacto</a>
+                    <a href="#">Soporte Técnico</a>
+                    <a href="#">Blog de Salud</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Health Track. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Validación del formulario
+        document.getElementById('register-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirm-password').value;
+            const age = document.getElementById('age').value;
+            const gender = document.getElementById('gender').value;
+
+            // Validar contraseñas
+            if (password !== confirmPassword) {
+                alert('Las contraseñas no coinciden. Por favor, verifica e intenta nuevamente.');
+                return;
+            }
+
+            // Validar edad
+            if (age < 13) {
+                document.getElementById('ageError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('ageError').style.display = 'none';
+            }
+
+            // Validar género
+            if (!gender) {
+                document.getElementById('genderError').style.display = 'block';
+                return;
+            } else {
+                document.getElementById('genderError').style.display = 'none';
+            }
+
+            // Aquí normalmente enviarías los datos al servidor
+            alert('¡Cuenta creada exitosamente! Redirigiendo...');
+            // window.location.href = 'inicio.html';
+        });
+
+        // Validación en tiempo real de edad
+        document.getElementById('age').addEventListener('input', function() {
+            const age = this.value;
+            if (age < 13) {
+                document.getElementById('ageError').style.display = 'block';
+            } else {
+                document.getElementById('ageError').style.display = 'none';
+            }
+        });
+
+        // Validación en tiempo real de género
+        document.getElementById('gender').addEventListener('change', function() {
+            if (this.value) {
+                document.getElementById('genderError').style.display = 'none';
+            }
+        });
+
+        // Efecto de cambio de color en el header al hacer scroll
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(20px)';
+            } else {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                header.style.backdropFilter = 'blur(20px)';
+            }
+        });
+    </script>
+</body>
+
+</html>

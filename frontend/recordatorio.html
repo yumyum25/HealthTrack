@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recordatorios - Health Track</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+</head>
+<body>
+    <header>
+        <div class="container header-grid">
+            <div class="brand">
+                <a href="#" aria-label="Health Track">
+                    <div class="logo"><i class="fas fa-heartbeat"></i></div>
+                    <div>
+                        <strong>Health Track</strong>
+                        <div style="font-weight:500;font-size:0.75rem;opacity:0.95">Panel de Usuario</div>
+                    </div>
+                </a>
+            </div>
+
+            <div class="user-area">
+                <div class="user-info">
+                    <div class="user-name" id="userName">María González</div>
+                    <div class="user-email" id="userEmail">maria.gonzalez@email.com</div>
+                </div>
+                <button type="button" class="btn btn-ghost" id="btnLogout">
+                    <i class="fas fa-sign-out-alt"></i> Salir
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <nav aria-label="Navegación principal">
+        <div class="nav-container">
+            <ul class="nav-list">
+                <li><a href="dashboard.html"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="estadisticas.html"><i class="fas fa-chart-line"></i> Estadísticas</a></li>
+                <li><a href="nutricion.html"><i class="fas fa-utensils"></i> Nutrición</a></li>
+                <li><a href="actividad.html"><i class="fas fa-running"></i> Actividad</a></li>
+                <li><a href="sueno.html"><i class="fas fa-bed"></i> Sueño</a></li>
+                <li><a href="recordatorio.html" class="active"><i class="fas fa-bell"></i> Recordatorios</a></li>
+                <li><a href="miperfil.html"><i class="fas fa-user"></i> Mi Perfil</a></li>
+            </ul>
+            <div class="nav-search">
+                <i class="fas fa-search"></i>
+                <input type="text" placeholder="Buscar..." aria-label="Buscar en Health Track">
+            </div>
+        </div>
+    </nav>
+
+    <main class="dashboard-main">
+        <div class="page-header">
+            <h1>Recordatorios</h1>
+            <p>Mantén el control de tus hábitos saludables con recordatorios personalizados</p>
+        </div>
+
+        <div class="reminders-actions">
+            <div class="filter-buttons">
+                <button class="filter-btn active">Todos</button>
+                <button class="filter-btn">Pendientes</button>
+                <button class="filter-btn">Completados</button>
+                <button class="filter-btn">Hoy</button>
+            </div>
+            <button class="btn-primary" onclick="showNewReminderModal()">
+                <i class="fas fa-plus"></i> Nuevo Recordatorio
+            </button>
+        </div>
+
+        <div class="reminders-grid">
+            <div class="reminder-card">
+                <div class="reminder-info">
+                    <div class="reminder-title">
+                        <i class="fas fa-glass-whiskey" style="color: #00D4AA;"></i>
+                        Beber Agua
+                    </div>
+                    <div class="reminder-description">
+                        Tomar 250ml de agua para mantener la hidratación
+                    </div>
+                    <div class="reminder-meta">
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            Cada 2 horas • Próximo: 16:00
+                        </div>
+                    </div>
+                </div>
+                <div class="reminder-actions">
+                    <button class="btn-action btn-complete">
+                        <i class="fas fa-check"></i> Completar
+                    </button>
+                    <button class="btn-action btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reminder-card overdue">
+                <div class="reminder-info">
+                    <div class="reminder-title">
+                        <i class="fas fa-walking" style="color: #6C63FF;"></i>
+                        Caminata Diaria
+                    </div>
+                    <div class="reminder-description">
+                        30 minutos de caminata al aire libre
+                    </div>
+                    <div class="reminder-meta">
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            Diario • Vencido: 14:00
+                        </div>
+                    </div>
+                </div>
+                <div class="reminder-actions">
+                    <button class="btn-action btn-complete">
+                        <i class="fas fa-check"></i> Completar
+                    </button>
+                    <button class="btn-action btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reminder-card completed">
+                <div class="reminder-info">
+                    <div class="reminder-title">
+                        <i class="fas fa-pills" style="color: #FF6B95;"></i>
+                        Tomar Vitaminas
+                    </div>
+                    <div class="reminder-description">
+                        Complejo vitamínico con el desayuno
+                    </div>
+                    <div class="reminder-meta">
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            Diario • Completado: 08:30
+                        </div>
+                    </div>
+                </div>
+                <div class="reminder-actions">
+                    <button class="btn-action btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button class="btn-action btn-delete">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            </div>
+
+            <div class="reminder-card">
+                <div class="reminder-info">
+                    <div class="reminder-title">
+                        <i class="fas fa-bed" style="color: #667eea;"></i>
+                        Hora de Dormir
+                    </div>
+                    <div class="reminder-description">
+                        Prepararse para dormir y apagar dispositivos
+                    </div>
+                    <div class="reminder-meta">
+                        <div class="reminder-time">
+                            <i class="fas fa-clock"></i>
+                            Diario • Próximo: 22:30
+                        </div>
+                    </div>
+                </div>
+                <div class="reminder-actions">
+                    <button class="btn-action btn-complete">
+                        <i class="fas fa-check"></i> Completar
+                    </button>
+                    <button class="btn-action btn-edit">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="recurring-reminders">
+            <h3 class="section-title">Recordatorios Recurrentes</h3>
+            
+            <div class="recurring-grid">
+                <div class="recurring-card">
+                    <div class="recurring-header">
+                        <div class="recurring-icon">
+                            <i class="fas fa-dumbbell"></i>
+                        </div>
+                        <div class="recurring-title">Entrenamiento</div>
+                    </div>
+                    <div class="recurring-schedule">
+                        Lunes, Miércoles, Viernes • 18:00
+                    </div>
+                    <div class="recurring-status status-active">
+                        <i class="fas fa-circle"></i> Activo
+                    </div>
+                </div>
+
+                <div class="recurring-card">
+                    <div class="recurring-header">
+                        <div class="recurring-icon">
+                            <i class="fas fa-weight"></i>
+                        </div>
+                        <div class="recurring-title">Pesaje Semanal</div>
+                    </div>
+                    <div class="recurring-schedule">
+                        Todos los lunes • 07:00
+                    </div>
+                    <div class="recurring-status status-active">
+                        <i class="fas fa-circle"></i> Activo
+                    </div>
+                </div>
+
+                <div class="recurring-card">
+                    <div class="recurring-header">
+                        <div class="recurring-icon">
+                            <i class="fas fa-heartbeat"></i>
+                        </div>
+                        <div class="recurring-title">Medición Presión</div>
+                    </div>
+                    <div class="recurring-schedule">
+                        Lunes y Jueves • 08:00
+                    </div>
+                    <div class="recurring-status status-paused">
+                        <i class="fas fa-circle"></i> Pausado
+                    </div>
+                </div>
+
+                <div class="recurring-card">
+                    <div class="recurring-header">
+                        <div class="recurring-icon">
+                            <i class="fas fa-notes-medical"></i>
+                        </div>
+                        <div class="recurring-title">Revisión Médica</div>
+                    </div>
+                    <div class="recurring-schedule">
+                        Mensual • Primer lunes
+                    </div>
+                    <div class="recurring-status status-active">
+                        <i class="fas fa-circle"></i> Activo
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Configurar filtros
+            const filterButtons = document.querySelectorAll('.filter-btn');
+            filterButtons.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterButtons.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    filterReminders(this.textContent);
+                });
+            });
+        });
+
+        function filterReminders(filter) {
+            const reminders = document.querySelectorAll('.reminder-card');
+            reminders.forEach(reminder => {
+                switch(filter) {
+                    case 'Pendientes':
+                        reminder.style.display = reminder.classList.contains('completed') ? 'none' : 'flex';
+                        break;
+                    case 'Completados':
+                        reminder.style.display = reminder.classList.contains('completed') ? 'flex' : 'none';
+                        break;
+                    case 'Hoy':
+                        // Lógica simplificada para mostrar recordatorios de hoy
+                        reminder.style.display = 'flex';
+                        break;
+                    default:
+                        reminder.style.display = 'flex';
+                }
+            });
+        }
+
+        function showNewReminderModal() {
+            alert('Funcionalidad para agregar nuevo recordatorio - En desarrollo');
+            // Aquí iría el código para mostrar un modal de creación de recordatorio
+        }
+    </script>
+    <script src="dashboard.js"></script>
+</body>
+</html>

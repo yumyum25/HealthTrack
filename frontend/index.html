@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Track - Tu salud en tus manos</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/header-footer.css">
+    <link rel="stylesheet" href="css/forms.css">
+</head>
+
+<body>
+    <!-- Encabezado con menú -->
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo-container">
+                    <div class="logo">HT</div>
+                    <div class="logo-text">Health Track</div>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Inicio</a></li>
+                    <li><a href="#caracteristicas">Características</a></li>
+                    <li><a href="#demo">Demo</a></li>
+                    <li><a href="#descargas">Descargas</a></li>
+                    <li><a href="#preguntas">FAQ</a></li>
+                    <li><a href="#contacto">Contacto</a></li>
+                    <li><a href="./registro.html" class="btn btn-register">
+                            <i class="fas fa-user-plus"></i>
+                            Registro
+                        </a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección principal -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <h1>Tu salud en tus manos</h1>
+            <p>Health Track revoluciona el cuidado de tu bienestar con tecnología avanzada y diseño intuitivo para una
+                experiencia única.</p>
+            <div class="hero-buttons">
+                <a href="./inicio.html" class="btn btn-register">
+                    <i class="fas fa-rocket"></i>
+                    Comenzar Ahora
+                </a>
+                <a href="#demo" class="btn btn-outline" id="demo-btn">
+                    <i class="fas fa-play-circle"></i>
+                    Ver Demo
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Demo Video -->
+    <section class="demo-video" id="demo">
+        <div class="container">
+            <div class="section-title">
+                <h2>Descubre Health Track</h2>
+                <p>Mira nuestro video demo y conoce todas las funcionalidades de la aplicación</p>
+            </div>
+            <div class="video-container">
+                <iframe id="demo-video-player"
+                    src="https://www.youtube.com/embed/yd_uG3TtREs?si=i2cJb-SiZ3XDgsAE&enablejsapi=1"
+                    title="Demo de Health Track"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen>
+                </iframe>
+                <div class="video-overlay">
+                    <div class="play-indicator">
+                        <i class="fas fa-play"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de características -->
+    <section class="features" id="caracteristicas">
+        <div class="container">
+            <div class="section-title">
+                <h2>Características Principales</h2>
+                <p>Descubre todo lo que Health Track puede hacer por tu bienestar</p>
+            </div>
+            <div class="features-grid">
+                <!-- Seguimiento de Salud -->
+                <div class="feature-container">
+                    <div class="feature-card">
+                        <div class="feature-icon">📊</div>
+                        <h3>Seguimiento de Salud</h3>
+                        <p>Registra y monitorea tus signos vitales, peso, presión arterial y más en una interfaz
+                            intuitiva y profesional.</p>
+                    </div>
+                    <div class="feature-panel">
+                        <h3>Seguimiento de Salud Completo</h3>
+                        <div class="feature-panel-content">
+                            <p>Nuestra aplicación te permite llevar un registro detallado de todos tus indicadores de
+                                salud:</p>
+                            <ul>
+                                <li>Registro de presión arterial sistólica y diastólica</li>
+                                <li>Seguimiento de frecuencia cardíaca en reposo y actividad</li>
+                                <li>Control de peso y cálculo de IMC automático</li>
+                                <li>Registro de niveles de glucosa en sangre</li>
+                                <li>Monitoreo de patrones de sueño y calidad del descanso</li>
+                                <li>Seguimiento de síntomas y medicamentos</li>
+                            </ul>
+                            <div class="panel-footer">
+                                <p>Todos los datos se presentan en gráficos fáciles de entender y puedes compartir
+                                    informes con tu médico.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actividad Física -->
+                <div class="feature-container">
+                    <div class="feature-card">
+                        <div class="feature-icon">🏃‍♂️</div>
+                        <h3>Actividad Física</h3>
+                        <p>Controla tus ejercicios, rutinas de entrenamiento y establece metas personales con
+                            recordatorios inteligentes.</p>
+                    </div>
+                    <div class="feature-panel">
+                        <h3>Planificación de Actividad Física</h3>
+                        <div class="feature-panel-content">
+                            <p>Optimiza tu rendimiento físico con nuestras herramientas especializadas:</p>
+                            <ul>
+                                <li>Creación de rutinas personalizadas según tus objetivos</li>
+                                <li>Seguimiento de pasos, distancia y calorías quemadas</li>
+                                <li>Registro de entrenamientos de fuerza, cardio y flexibilidad</li>
+                                <li>Planificación semanal de actividades</li>
+                                <li>Integración con dispositivos wearables y apps de fitness</li>
+                                <li>Análisis de progreso con métricas detalladas</li>
+                            </ul>
+                            <div class="panel-footer">
+                                <p>Recibe recomendaciones inteligentes basadas en tu historial y objetivos para
+                                    maximizar tus resultados.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Nutrición Balanceada -->
+                <div class="feature-container">
+                    <div class="feature-card">
+                        <div class="feature-icon">🍎</div>
+                        <h3>Nutrición Balanceada</h3>
+                        <p>Lleva un registro completo de tu alimentación y recibe recomendaciones nutricionales
+                            personalizadas.</p>
+                    </div>
+                    <div class="feature-panel">
+                        <h3>Control Nutricional Avanzado</h3>
+                        <div class="feature-panel-content">
+                            <p>Gestiona tu alimentación con nuestras herramientas nutricionales:</p>
+                            <ul>
+                                <li>Registro diario de alimentos y bebidas consumidas</li>
+                                <li>Base de datos con más de 50,000 alimentos</li>
+                                <li>Cálculo automático de calorías y macronutrientes</li>
+                                <li>Planes de alimentación personalizados</li>
+                                <li>Seguimiento de hidratación y consumo de agua</li>
+                                <li>Alertas inteligentes para mantener tus hábitos</li>
+                            </ul>
+                            <div class="panel-footer">
+                                <p>Nuestro sistema aprende de tus preferencias y te sugiere recetas saludables adaptadas
+                                    a tu estilo de vida.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de descargas mejorada -->
+    <section class="downloads" id="descargas">
+        <div class="container">
+            <div class="section-title">
+                <h2>Descarga Health Track</h2>
+                <p>Disponible para todas las plataformas principales. Elige tu favorita.</p>
+            </div>
+            <div class="download-options">
+                <div class="download-card">
+                    <div class="download-icon-container">
+                        <i class="download-icon ios-icon fab fa-apple"></i>
+                    </div>
+                    <h3>Para iOS</h3>
+                    <p>Optimizado para iPhone y iPad. Disponible en App Store con soporte completo para todas las
+                        funciones y actualizaciones regulares.</p>
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn ios-btn">
+                            <i class="fab fa-apple"></i>
+                            Descargar para iOS
+                        </a>
+                    </div>
+                </div>
+                <div class="download-card">
+                    <div class="download-icon-container">
+                        <i class="download-icon android-icon fab fa-google-play"></i>
+                    </div>
+                    <h3>Para Android</h3>
+                    <p>Compatible con todos los dispositivos Android. Descarga desde Google Play Store con
+                        sincronización en la nube incluida.</p>
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn android-btn">
+                            <i class="fab fa-google-play"></i>
+                            Descargar para Android
+                        </a>
+                    </div>
+                </div>
+                <div class="download-card">
+                    <div class="download-icon-container">
+                        <i class="download-icon web-icon fas fa-globe"></i>
+                    </div>
+                    <h3>Versión Web</h3>
+                    <p>Accede instantáneamente desde cualquier navegador moderno. Sin instalación requerida y
+                        sincronización en tiempo real.</p>
+                    <div class="download-buttons">
+                        <a href="#" class="download-btn web-btn">
+                            <i class="fas fa-external-link-alt"></i>
+                            Acceder Web App
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Preguntas Frecuentes -->
+    <section class="faq" id="preguntas">
+        <div class="container">
+            <div class="section-title">
+                <h2>¿Tienes preguntas?</h2>
+                <p>Aquí encontrarás respuestas a las preguntas más comunes sobre Health Track</p>
+            </div>
+            <div class="faq-container">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>¿Qué es Health Track y cómo funciona?</h3>
+                        <i class="faq-icon fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Health Track es una aplicación integral de seguimiento de salud que te permite monitorear tus
+                            signos vitales, actividad física, nutrición y hábitos de sueño. Funciona mediante la
+                            sincronización con dispositivos wearables y el ingreso manual de datos, proporcionando
+                            análisis detallados y recomendaciones personalizadas para mejorar tu bienestar.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>¿Cuánto cuesta Health Track?</h3>
+                        <i class="faq-icon fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Health Track ofrece una versión gratuita con funciones básicas de seguimiento. Para acceder a
+                            todas las funciones premium, como análisis avanzados, planes personalizados y soporte
+                            prioritario, ofrecemos suscripciones mensuales por $9.99 o anuales por $99.99 (equivalente a
+                            $8.33 por mes).</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>¿Puedo sincronizar Health Track con mis dispositivos?</h3>
+                        <i class="faq-icon fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, Health Track es compatible con la mayoría de dispositivos wearables como Apple Watch,
+                            Fitbit, Garmin y Samsung Galaxy Watch. También puedes sincronizar con balanzas inteligentes,
+                            monitores de presión arterial y glucómetros compatibles. Consulta nuestra lista completa de
+                            dispositivos compatibles en la sección de ayuda.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>¿Tengo que ser experto en tecnología para usar Health Track?</h3>
+                        <i class="faq-icon fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>No, Health Track está diseñado para ser intuitivo y fácil de usar para personas de todos los
+                            niveles de habilidad tecnológica. La interfaz es limpia y sencilla, con tutoriales
+                            integrados y asistencia paso a paso. Además, nuestro equipo de soporte está disponible para
+                            ayudarte con cualquier duda que puedas tener.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>¿Cómo protege Health Track mi privacidad y datos de salud?</h3>
+                        <i class="faq-icon fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>La privacidad y seguridad de tus datos son nuestra máxima prioridad. Utilizamos encriptación
+                            de grado bancario para proteger tu información, cumplimos con las regulaciones de protección
+                            de datos médicos (HIPAA) y nunca compartimos tus datos personales con terceros sin tu
+                            consentimiento explícito. Tú tienes control total sobre qué información compartir y con
+                            quién.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <h3>¿Health Track está disponible en mi país?</h3>
+                        <i class="faq-icon fas fa-chevron-down"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Health Track está disponible en la mayoría de países de América, Europa y Asia. La aplicación
+                            está traducida a más de 15 idiomas. Consulta nuestra página de disponibilidad regional para
+                            verificar si tu país está incluido. Si no encuentras tu país en la lista, puedes registrarte
+                            para recibir una notificación cuando esté disponible.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pie de página -->
+    <footer id="contacto">
+        <div class="container">
+            <div class="footer-content">
+                <div class="logo-container">
+                    <div class="footer-logo">HT</div>
+                    <div class="logo-text">Health Track</div>
+                </div>
+                <div class="footer-links">
+                    <a href="#">Términos de Servicio</a>
+                    <a href="#">Política de Privacidad</a>
+                    <a href="#">Contacto</a>
+                    <a href="#">Soporte Técnico</a>
+                    <a href="#">Blog de Salud</a>
+                </div>
+                <div class="footer-bottom">
+                    <p>&copy; 2025 Health Track. Todos los derechos reservados.</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Cargar la API de YouTube
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('demo-video-player', {
+                events: {
+                    'onReady': onPlayerReady
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            // El reproductor está listo
+        }
+
+        // Función para reproducir el video
+        function playVideo() {
+            if (player && typeof player.playVideo === 'function') {
+                player.playVideo();
+            }
+        }
+
+        // Smooth scroll para los enlaces del menú
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+
+                    // Si es el enlace de demo, reproducir el video después del scroll
+                    if (targetId === '#demo') {
+                        setTimeout(playVideo, 1000);
+                    }
+                }
+            });
+        });
+
+        // Efecto de cambio de color en el header al hacer scroll
+        window.addEventListener('scroll', function () {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
+                header.style.backdropFilter = 'blur(20px)';
+            } else {
+                header.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
+                header.style.backdropFilter = 'blur(20px)';
+            }
+        });
+
+        // Efecto de aparición suave en scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Aplicar a las tarjetas
+        document.querySelectorAll('.download-card, .feature-container').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
+        });
+
+        // Funcionalidad para las preguntas frecuentes
+        document.querySelectorAll('.faq-question').forEach(question => {
+            question.addEventListener('click', () => {
+                const item = question.parentElement;
+                item.classList.toggle('active');
+            });
+        });
+
+        // Reproducir video al hacer clic en el overlay
+        document.querySelector('.video-overlay').addEventListener('click', function () {
+            playVideo();
+            this.style.display = 'none';
+        });
+    </script>
+</body>
+
+</html>
