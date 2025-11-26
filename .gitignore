@@ -1,7 +1,15 @@
-.gradle
-build
-out
-*.log
-*.class
+# Backend
+backend/.gradle
+backend/build
+backend/out
+
+# IDE
 .idea
 *.iml
+
+# Log files
+*.log
+
+# Node
+frontend/node_modules
+frontend/test-results/
