@@ -1,3 +1,15 @@
-node_modules
+# Backend
+backend/.gradle
+backend/build
+backend/out
+
+# IDE
+.idea
+*.iml
+
+# Log files
 *.log
-test-results/
+
+# Node
+frontend/node_modules
+frontend/test-results/
